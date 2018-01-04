@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-01-04 11:40+0330\n"
+"POT-Creation-Date: 2018-01-04 12:04+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -21,7 +21,7 @@ msgid "%s company dashboard"
 msgstr "اطلاعات مدیریتی شرکت %s"
 
 #: template/admin/analytic-company.phtml:17
-#: template/admin/analytic-summary.phtml:25
+#: template/admin/analytic-summary.phtml:26
 #: template/admin/analytic-user.phtml:31
 #, php-format
 msgid "%s order and %s price."
@@ -30,7 +30,7 @@ msgstr ""
 "strong> می باشد."
 
 #: template/admin/analytic-company.phtml:28
-#: template/admin/analytic-summary.phtml:34
+#: template/admin/analytic-summary.phtml:35
 #: template/admin/analytic-user.phtml:40
 #, php-format
 msgid "%s paid invoice and %s price."
@@ -39,7 +39,7 @@ msgstr ""
 "<strong>%s</strong> می باشد."
 
 #: template/admin/analytic-company.phtml:39
-#: template/admin/analytic-summary.phtml:43
+#: template/admin/analytic-summary.phtml:44
 #: template/admin/analytic-user.phtml:49
 #, php-format
 msgid "%s unpaid invoice and %s price."
@@ -55,7 +55,7 @@ msgstr ""
 "%s</strong> قسط به مبلغ <strong>%s</strong> می باشد."
 
 #: template/admin/analytic-company.phtml:61
-#: template/admin/analytic-summary.phtml:52
+#: template/admin/analytic-summary.phtml:53
 #: template/admin/analytic-user.phtml:58
 #, php-format
 msgid "%s delayed invoice and %s price."
@@ -111,40 +111,44 @@ msgid "Last invoice time"
 msgstr "تاریخ آخرین قسط"
 
 #: template/admin/analytic-company.phtml:97
-#: template/admin/analytic-company.phtml:284
+#: template/admin/analytic-company.phtml:302
 #: template/admin/analytic-user.phtml:176
 msgid "Action"
 msgstr "عملکرد"
 
-#: template/admin/analytic-company.phtml:148
-msgid "View details"
-msgstr "اطلاعات بیشتر"
+#: template/admin/analytic-company.phtml:155
+msgid "View analytic"
+msgstr "آمار"
 
-#: template/admin/analytic-company.phtml:154
+#: template/admin/analytic-company.phtml:158
+msgid "Fast view"
+msgstr "نمایش سریع"
+
+#: template/admin/analytic-company.phtml:164
 msgid "Total table"
 msgstr "مجموع"
 
-#: template/admin/analytic-company.phtml:177
+#: template/admin/analytic-company.phtml:195
 msgid "Info finish"
 msgstr "تسویه شده"
 
-#: template/admin/analytic-company.phtml:178
+#: template/admin/analytic-company.phtml:196
 msgid "Info unpaid"
 msgstr "دارای قسط پرداخت نشده"
 
-#: template/admin/analytic-company.phtml:179
+#: template/admin/analytic-company.phtml:197
 msgid "Info next"
 msgstr "سرید قسط تا ۱۰ روز"
 
-#: template/admin/analytic-company.phtml:180
+#: template/admin/analytic-company.phtml:198
 msgid "Info delayed"
 msgstr "قسط معوقه"
 
-#: template/admin/analytic-company.phtml:226
-#: template/admin/analytic-summary.phtml:110
-#: template/admin/analytic-summary.phtml:138
-#: template/admin/analytic-summary.phtml:166
-#: template/admin/analytic-summary.phtml:194
+#: template/admin/analytic-company.phtml:244
+#: template/admin/analytic-summary.phtml:111
+#: template/admin/analytic-summary.phtml:139
+#: template/admin/analytic-summary.phtml:167
+#: template/admin/analytic-summary.phtml:195
 #: template/admin/analytic-user.phtml:429
 #: template/admin/analytic-user.phtml:457
 #: template/admin/analytic-user.phtml:485
@@ -152,11 +156,11 @@ msgstr "قسط معوقه"
 msgid "Paid"
 msgstr "پرداخت شده"
 
-#: template/admin/analytic-company.phtml:227
-#: template/admin/analytic-summary.phtml:111
-#: template/admin/analytic-summary.phtml:139
-#: template/admin/analytic-summary.phtml:167
-#: template/admin/analytic-summary.phtml:195
+#: template/admin/analytic-company.phtml:245
+#: template/admin/analytic-summary.phtml:112
+#: template/admin/analytic-summary.phtml:140
+#: template/admin/analytic-summary.phtml:168
+#: template/admin/analytic-summary.phtml:196
 #: template/admin/analytic-user.phtml:430
 #: template/admin/analytic-user.phtml:458
 #: template/admin/analytic-user.phtml:486
@@ -164,11 +168,11 @@ msgstr "پرداخت شده"
 msgid "UnPaid"
 msgstr "پرداخت نشده"
 
-#: template/admin/analytic-company.phtml:228
-#: template/admin/analytic-summary.phtml:112
-#: template/admin/analytic-summary.phtml:140
-#: template/admin/analytic-summary.phtml:168
-#: template/admin/analytic-summary.phtml:196
+#: template/admin/analytic-company.phtml:246
+#: template/admin/analytic-summary.phtml:113
+#: template/admin/analytic-summary.phtml:141
+#: template/admin/analytic-summary.phtml:169
+#: template/admin/analytic-summary.phtml:197
 #: template/admin/analytic-user.phtml:431
 #: template/admin/analytic-user.phtml:459
 #: template/admin/analytic-user.phtml:487
@@ -176,49 +180,53 @@ msgstr "پرداخت نشده"
 msgid "Delayed"
 msgstr "معوقه"
 
-#: template/admin/analytic-company.phtml:244
+#: template/admin/analytic-company.phtml:262
 #: template/admin/analytic-user.phtml:530
 msgid "Paid invoice"
 msgstr "تعداد قسط پرداخت شده"
 
-#: template/admin/analytic-company.phtml:253
+#: template/admin/analytic-company.phtml:271
 #: template/admin/analytic-user.phtml:539
 msgid "DuDate invoice"
 msgstr "تعداد قسط معوقه"
 
-#: template/admin/analytic-company.phtml:262
+#: template/admin/analytic-company.phtml:280
 #: template/admin/analytic-user.phtml:548
 msgid "Create invoice"
 msgstr "تعداد قسط ایجاد شده"
 
-#: template/admin/analytic-company.phtml:279
+#: template/admin/analytic-company.phtml:297
 msgid "List of company"
 msgstr "فهرست شرکت ها"
 
-#: template/admin/analytic-company.phtml:282
+#: template/admin/analytic-company.phtml:300
 #: template/admin/analytic-user.phtml:171
 msgid "ID"
 msgstr "شناسه"
 
-#: template/admin/analytic-company.phtml:283
+#: template/admin/analytic-company.phtml:301
 msgid "Company"
 msgstr "شرکت"
 
-#: template/admin/analytic-company.phtml:291
-#: template/admin/analytic-company.phtml:293
+#: template/admin/analytic-company.phtml:309
+#: template/admin/analytic-company.phtml:311
 msgid "View report"
 msgstr "نمایش گزارش"
 
-#: template/admin/analytic-summary.phtml:8
+#: template/admin/analytic-summary.phtml:5
+msgid "Toman"
+msgstr "تومان"
+
+#: template/admin/analytic-summary.phtml:9
 msgid "Summery report"
 msgstr "گزارش خلاصه"
 
-#: template/admin/analytic-summary.phtml:61
+#: template/admin/analytic-summary.phtml:62
 #: template/admin/analytic-user.phtml:67
 msgid "Chart sum"
 msgstr "نمودار مجموع مبالغ اقساط"
 
-#: template/admin/analytic-summary.phtml:76
+#: template/admin/analytic-summary.phtml:77
 #: template/admin/analytic-user.phtml:82
 msgid "Chart count"
 msgstr "نمودار تعداد اقساط"
@@ -301,3 +309,14 @@ msgstr "سایر فاکتور ها"
 #: template/admin/analytic-user.phtml:379
 msgid "Due date"
 msgstr "سررسید پرداخت"
+
+#: template/admin/analytic-user.phtml:566
+msgid "List of users"
+msgstr "فهرست کاربران"
+
+#: template/admin/analytic-user.phtml:570
+msgid "Search for users ..."
+msgstr "جستجوی نام کاربر ..."
+
+#~ msgid "View details"
+#~ msgstr "اطلاعات بیشتر"

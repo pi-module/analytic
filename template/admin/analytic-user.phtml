@@ -561,15 +561,43 @@ $this->js($this->assetModule('js/Chart.min.js'));
         })(jQuery)
     </script>
 <?php } else { ?>
-    <div class="list-group clearfix">
-        <?php foreach ($users as $user) { ?>
-            <div class="list-group-item col-md-3">
-                <a href="<?php echo $this->escape($user['view_url']); ?>">
-                    <?php echo $user['avatar']; ?>
-                    <?php echo $this->escape($user['first_name']); ?>
-                    <?php echo $this->escape($user['last_name']); ?>
-                </a>
-            </div>
-        <?php } ?>
+    <div class="clearfix">
+        <div class="page-header">
+            <h2><?php _e('List of users'); ?></h2>
+        </div>
+        <div class="clearfix">
+            <input type="text" class="col-md-12" id="userInput" onkeyup="userFunction()"
+                   placeholder="<?php _e('Search for users ...'); ?>">
+        </div>
+        <br/>
+        <ul id="userList" class="list-group">
+            <?php foreach ($users as $user) { ?>
+                <li class="list-group-item col-md-3">
+                    <a href="<?php echo $this->escape($user['view_url']); ?>">
+                        <?php echo $user['avatar']; ?>
+                        <?php echo $this->escape($user['first_name']); ?>
+                        <?php echo $this->escape($user['last_name']); ?>
+                    </a>
+                </li>
+            <?php } ?>
+        </ul>
     </div>
+    <script>
+        function userFunction() {
+            // Declare variables
+            var input, filter, ul, li, a, i;
+            input = document.getElementById('userInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("userList");
+            li = ul.getElementsByTagName('li');
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 <?php } ?>
