@@ -1,0 +1,205 @@
+<?php
+$this->jQuery();
+$this->css($this->assetModule('css/admin.css'));
+$this->js($this->assetModule('js/Chart.min.js'));
+?>
+<div class="clearfix">
+    <div class="page-header">
+        <h1><?php _e('Summery report'); ?></h1>
+    </div>
+    <div class="clearfix row">
+        <div class="col-md-6">
+            <div class="alert alert-info" role="alert">
+                <?php
+                $price = sprintf(
+                    '%s (%s)',
+                    Pi::api('api', 'order')->viewPrice($list['total']['sum']),
+                    Pi::api('api', 'order')->viewPrice($list['order']['sum'])
+                );
+                $count = sprintf(
+                    '%s (%s)',
+                    _number($list['total']['count']),
+                    _number($list['order']['count'])
+                );
+                echo sprintf(
+                    __('%s order and %s price.'),
+                    $count,
+                    $price
+                ); ?>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-success" role="alert">
+                <?php echo sprintf(
+                    __('%s paid invoice and %s price.'),
+                    _number($list['paid']['count']),
+                    Pi::api('api', 'order')->viewPrice($list['paid']['sum'])
+                ); ?>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-warning" role="alert">
+                <?php echo sprintf(
+                    __('%s unpaid invoice and %s price.'),
+                    _number($list['unPaid']['count']),
+                    Pi::api('api', 'order')->viewPrice($list['unPaid']['sum'])
+                ); ?>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-danger" role="alert">
+                <?php echo sprintf(
+                    __('%s delayed invoice and %s price.'),
+                    _number($list['delayed']['count']),
+                    Pi::api('api', 'order')->viewPrice($list['delayed']['sum'])
+                ); ?>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix row">
+        <div class="page-header col-md-12">
+            <h3><?php _e('Chart sum'); ?></h3>
+        </div>
+        <div class="col-md-6">
+            <div class="clearfix">
+                <canvas id="chart-sum"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="clearfix">
+                <canvas id="chart-sum-polar"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix row">
+        <div class="page-header col-md-12">
+            <h3><?php _e('Chart count'); ?></h3>
+        </div>
+        <div class="col-md-6">
+            <div class="clearfix">
+                <canvas id="chart-count"></canvas>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="clearfix">
+                <canvas id="chart-count-polar"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            var ctx = document.getElementById('chart-sum').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: [
+                            <?php echo $list['paid']['sum']; ?>,
+                            <?php echo $list['unPaid']['sum']; ?>,
+                            <?php echo $list['delayed']['sum']; ?>,
+                        ],
+                        backgroundColor: [
+                            'rgb(75, 192, 192)', // green
+                            'rgb(255, 159, 64)', // orange
+                            'rgb(255, 99, 132)', // red
+                        ]
+                    }],
+                    labels: [
+                        "<?php _e('Paid') ?>",
+                        "<?php _e('UnPaid') ?>",
+                        "<?php _e('Delayed') ?>",
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+        $(document).ready(function () {
+            var ctx = document.getElementById('chart-count').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: [
+                            <?php echo $list['paid']['count']; ?>,
+                            <?php echo $list['unPaid']['count']; ?>,
+                            <?php echo $list['delayed']['count']; ?>,
+                        ],
+                        backgroundColor: [
+                            'rgb(75, 192, 192)', // green
+                            'rgb(255, 159, 64)', // orange
+                            'rgb(255, 99, 132)', // red
+                        ]
+                    }],
+                    labels: [
+                        "<?php _e('Paid') ?>",
+                        "<?php _e('UnPaid') ?>",
+                        "<?php _e('Delayed') ?>",
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+        $(document).ready(function () {
+            var ctx = document.getElementById('chart-sum-polar').getContext('2d');
+            new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    datasets: [{
+                        data: [
+                            <?php echo $list['paid']['sum']; ?>,
+                            <?php echo $list['unPaid']['sum']; ?>,
+                            <?php echo $list['delayed']['sum']; ?>,
+                        ],
+                        backgroundColor: [
+                            'rgb(75, 192, 192)', // green
+                            'rgb(255, 159, 64)', // orange
+                            'rgb(255, 99, 132)', // red
+                        ]
+                    }],
+                    labels: [
+                        "<?php _e('Paid') ?>",
+                        "<?php _e('UnPaid') ?>",
+                        "<?php _e('Delayed') ?>",
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+        $(document).ready(function () {
+            var ctx = document.getElementById('chart-count-polar').getContext('2d');
+            new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    datasets: [{
+                        data: [
+                            <?php echo $list['paid']['count']; ?>,
+                            <?php echo $list['unPaid']['count']; ?>,
+                            <?php echo $list['delayed']['count']; ?>,
+                        ],
+                        backgroundColor: [
+                            'rgb(75, 192, 192)', // green
+                            'rgb(255, 159, 64)', // orange
+                            'rgb(255, 99, 132)', // red
+                        ]
+                    }],
+                    labels: [
+                        "<?php _e('Paid') ?>",
+                        "<?php _e('UnPaid') ?>",
+                        "<?php _e('Delayed') ?>",
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+    })(jQuery)
+</script>

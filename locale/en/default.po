@@ -1,0 +1,294 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Pi payment module\n"
+"POT-Creation-Date: 2018-01-04 11:40+0330\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Pi\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: template/admin/analytic-company.phtml:10
+#, php-format
+msgid "%s company dashboard"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:17
+#: template/admin/analytic-summary.phtml:25
+#: template/admin/analytic-user.phtml:31
+#, php-format
+msgid "%s order and %s price."
+msgstr ""
+
+#: template/admin/analytic-company.phtml:28
+#: template/admin/analytic-summary.phtml:34
+#: template/admin/analytic-user.phtml:40
+#, php-format
+msgid "%s paid invoice and %s price."
+msgstr ""
+
+#: template/admin/analytic-company.phtml:39
+#: template/admin/analytic-summary.phtml:43
+#: template/admin/analytic-user.phtml:49
+#, php-format
+msgid "%s unpaid invoice and %s price."
+msgstr ""
+
+#: template/admin/analytic-company.phtml:50
+#, php-format
+msgid "%s next paid invoice and %s price."
+msgstr ""
+
+#: template/admin/analytic-company.phtml:61
+#: template/admin/analytic-summary.phtml:52
+#: template/admin/analytic-user.phtml:58
+#, php-format
+msgid "%s delayed invoice and %s price."
+msgstr ""
+
+#: template/admin/analytic-company.phtml:72
+msgid "Payment chart"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:78
+#: template/admin/analytic-user.phtml:160
+msgid "Chart report"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:86
+msgid "User report"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:90
+msgid "Name"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:91
+#: template/admin/analytic-user.phtml:106
+msgid "Total orders"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:92
+#: template/admin/analytic-user.phtml:116
+msgid "Total paid"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:93
+#: template/admin/analytic-user.phtml:126
+msgid "Total not paid"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:94
+#: template/admin/analytic-user.phtml:136
+msgid "Total delayed"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:95
+#: template/admin/analytic-user.phtml:146
+msgid "Current credit"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:96
+#: template/admin/analytic-user.phtml:152
+msgid "Last invoice time"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:97
+#: template/admin/analytic-company.phtml:284
+#: template/admin/analytic-user.phtml:176
+msgid "Action"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:148
+msgid "View details"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:154
+msgid "Total table"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:177
+msgid "Info finish"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:178
+msgid "Info unpaid"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:179
+msgid "Info next"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:180
+msgid "Info delayed"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:226
+#: template/admin/analytic-summary.phtml:110
+#: template/admin/analytic-summary.phtml:138
+#: template/admin/analytic-summary.phtml:166
+#: template/admin/analytic-summary.phtml:194
+#: template/admin/analytic-user.phtml:429
+#: template/admin/analytic-user.phtml:457
+#: template/admin/analytic-user.phtml:485
+#: template/admin/analytic-user.phtml:513
+msgid "Paid"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:227
+#: template/admin/analytic-summary.phtml:111
+#: template/admin/analytic-summary.phtml:139
+#: template/admin/analytic-summary.phtml:167
+#: template/admin/analytic-summary.phtml:195
+#: template/admin/analytic-user.phtml:430
+#: template/admin/analytic-user.phtml:458
+#: template/admin/analytic-user.phtml:486
+#: template/admin/analytic-user.phtml:514
+msgid "UnPaid"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:228
+#: template/admin/analytic-summary.phtml:112
+#: template/admin/analytic-summary.phtml:140
+#: template/admin/analytic-summary.phtml:168
+#: template/admin/analytic-summary.phtml:196
+#: template/admin/analytic-user.phtml:431
+#: template/admin/analytic-user.phtml:459
+#: template/admin/analytic-user.phtml:487
+#: template/admin/analytic-user.phtml:515
+msgid "Delayed"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:244
+#: template/admin/analytic-user.phtml:530
+msgid "Paid invoice"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:253
+#: template/admin/analytic-user.phtml:539
+msgid "DuDate invoice"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:262
+#: template/admin/analytic-user.phtml:548
+msgid "Create invoice"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:279
+msgid "List of company"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:282
+#: template/admin/analytic-user.phtml:171
+msgid "ID"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:283
+msgid "Company"
+msgstr ""
+
+#: template/admin/analytic-company.phtml:291
+#: template/admin/analytic-company.phtml:293
+msgid "View report"
+msgstr ""
+
+#: template/admin/analytic-summary.phtml:8
+msgid "Summery report"
+msgstr ""
+
+#: template/admin/analytic-summary.phtml:61
+#: template/admin/analytic-user.phtml:67
+msgid "Chart sum"
+msgstr ""
+
+#: template/admin/analytic-summary.phtml:76
+#: template/admin/analytic-user.phtml:82
+msgid "Chart count"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:99
+msgid "User status"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:102
+msgid "Title"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:103
+msgid "Value"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:167
+msgid "Orders list"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:172
+msgid "Code"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:173
+msgid "Product / service"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:174
+msgid "Time"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:175
+msgid "Price"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:193
+#: template/admin/analytic-user.phtml:199
+msgid "View"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:206
+msgid "You dont have any order yet"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:209
+msgid "Installment list"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:212
+msgid "10 th"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:226
+#: template/admin/analytic-user.phtml:281
+#: template/admin/analytic-user.phtml:336
+#: template/admin/analytic-user.phtml:380
+msgid "Total"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:248
+#: template/admin/analytic-user.phtml:303
+#: template/admin/analytic-user.phtml:358
+#: template/admin/analytic-user.phtml:390
+msgid "Amount"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:267
+msgid "20 th"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:322
+msgid "30 th"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:378
+msgid "Additional invoices"
+msgstr ""
+
+#: template/admin/analytic-user.phtml:379
+msgid "Due date"
+msgstr ""

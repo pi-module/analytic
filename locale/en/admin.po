@@ -1,0 +1,45 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Pi order module\n"
+"POT-Creation-Date: 2018-01-04 11:39+0330\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Pi\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _a;_t\n"
+"X-Poedit-Basepath: ../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: config/config.php:17
+msgid "Admin"
+msgstr ""
+
+#: config/config.php:25
+msgid "Perpage"
+msgstr ""
+
+#: config/module.php:16 config/page.php:17 config/permission.php:17
+msgid "Analytic"
+msgstr ""
+
+#: config/module.php:17
+msgid "Analytic for order module"
+msgstr ""
+
+#: config/navigation.php:19
+msgid "Summary"
+msgstr ""
+
+#: config/navigation.php:25
+msgid "Company"
+msgstr ""
+
+#: config/navigation.php:31
+msgid "User"
+msgstr ""

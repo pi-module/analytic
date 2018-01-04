@@ -1,0 +1,575 @@
+<?php
+$this->jQuery();
+$this->backbone();
+$this->css($this->assetModule('css/front.css'));
+$this->js($this->assetModule('js/Chart.min.js'));
+?>
+<?php if ($uid > 0) { ?>
+    <div class="clearfix">
+        <div class="page-header">
+            <h1>
+                <?php echo $user['avatar']; ?>
+                <?php echo $this->escape($user['first_name']); ?>
+                <?php echo $this->escape($user['last_name']); ?>
+            </h1>
+        </div>
+        <div class="clearfix row">
+            <div class="col-md-6">
+                <div class="alert alert-info" role="alert">
+                    <?php
+                    $price = sprintf(
+                        '%s (%s)',
+                        Pi::api('api', 'order')->viewPrice($list['total']['sum']),
+                        Pi::api('api', 'order')->viewPrice($list['order']['sum'])
+                    );
+                    $count = sprintf(
+                        '%s (%s)',
+                        _number($list['total']['count']),
+                        _number($list['order']['count'])
+                    );
+                    echo sprintf(
+                        __('%s order and %s price.'),
+                        $count,
+                        $price
+                    ); ?>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="alert alert-success" role="alert">
+                    <?php echo sprintf(
+                        __('%s paid invoice and %s price.'),
+                        _number($list['paid']['count']),
+                        Pi::api('api', 'order')->viewPrice($list['paid']['sum'])
+                    ); ?>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="alert alert-warning" role="alert">
+                    <?php echo sprintf(
+                        __('%s unpaid invoice and %s price.'),
+                        _number($list['unPaid']['count']),
+                        Pi::api('api', 'order')->viewPrice($list['unPaid']['sum'])
+                    ); ?>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="alert alert-danger" role="alert">
+                    <?php echo sprintf(
+                        __('%s delayed invoice and %s price.'),
+                        _number($list['delayed']['count']),
+                        Pi::api('api', 'order')->viewPrice($list['delayed']['sum'])
+                    ); ?>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix row">
+            <div class="page-header col-md-12">
+                <h3><?php _e('Chart sum'); ?></h3>
+            </div>
+            <div class="col-md-6">
+                <div class="clearfix">
+                    <canvas id="chart-sum"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="clearfix">
+                    <canvas id="chart-sum-polar"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix row">
+            <div class="page-header col-md-12">
+                <h3><?php _e('Chart count'); ?></h3>
+            </div>
+            <div class="col-md-6">
+                <div class="clearfix">
+                    <canvas id="chart-count"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="clearfix">
+                    <canvas id="chart-count-polar"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="clearfix row">
+        <div class="col-md-5">
+            <h3><?php _e('User status'); ?></h3>
+            <table class="table table-striped table-bordered table-condensed">
+                <tr>
+                    <th><?php _e('Title'); ?></th>
+                    <th><?php _e('Value'); ?></th>
+                </tr>
+                <tr>
+                    <td><?php _e('Total orders'); ?></td>
+                    <td>
+                        <?php if (count($user['orderList']) > 0) { ?>
+                            <?php echo $this->escape(_number(count($user['orderList']))); ?>
+                            (
+                            <small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['orderTotal'])); ?></small>)
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?php _e('Total paid'); ?></td>
+                    <td>
+                        <?php if (count($user['invoicePaidList']) > 0) { ?>
+                            <?php echo $this->escape(_number(count($user['invoicePaidList']))); ?>
+                            (
+                            <small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoicePaidTotal'])); ?></small>)
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?php _e('Total not paid'); ?></td>
+                    <td>
+                        <?php if (count($user['invoiceUnPaidList']) > 0) { ?>
+                            <?php echo $this->escape(_number(count($user['invoiceUnPaidList']))); ?>
+                            (
+                            <small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoiceUnPaidTotal'])); ?></small>)
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?php _e('Total delayed'); ?></td>
+                    <td>
+                        <?php if (count($user['invoiceDelayedList']) > 0) { ?>
+                            <?php echo $this->escape(_number(count($user['invoiceDelayedList']))); ?>
+                            (
+                            <small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoiceDelayedTotal'])); ?></small>)
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?php _e('Current credit'); ?></td>
+                    <td>
+                        <?php echo $this->escape($user['credit']['amount_view']); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?php _e('Last invoice time'); ?></td>
+                    <td>
+                        <?php echo $this->escape($user['lastInvoice']); ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-7">
+            <h3><?php _e('Chart report'); ?></h3>
+            <div class="clearfix">
+                <canvas id="chart-invoice"></canvas>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <h3><?php _e('Orders list'); ?></h3>
+    <?php if ($orderList) { ?>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <th class="text-center"><?php _e('ID'); ?></th>
+                <th class="text-center"><?php _e('Code'); ?></th>
+                <td class="text-center"><?php _e('Product / service'); ?></td>
+                <th class="text-center"><?php _e('Time'); ?></th>
+                <th class="text-center"><?php _e('Price'); ?></th>
+                <th class="text-center"><?php _e('Action'); ?></th>
+            </tr>
+            <?php $i = 1; ?>
+            <?php foreach ($orderList as $order) { ?>
+                <tr>
+                    <td class="text-center"><?php echo _number($i); ?></td>
+                    <td class="text-center"><?php echo $this->escape($order['code']); ?></td>
+                    <td class="text-center">
+                        <?php $productsList = [];
+                        foreach ($order['products'] as $product) {
+                            $productsList[] = $product['details']['title'];
+                        }
+                        echo implode(' , ', $productsList); ?>
+                    </td>
+                    <td class="text-center"><?php echo $this->escape($order['time_create_view']); ?></td>
+                    <td class="text-center"><?php echo $this->escape($order['total_price_view']); ?></td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-xs" title="<?php _e('View'); ?>" target="_blank"
+                           href="<?php echo Pi::url($this->url('', [
+                               'module'     => 'order',
+                               'controller' => 'order',
+                               'action'     => 'view',
+                               'id'         => $order['id']])); ?>"><i
+                                    class="fa fa-edit"></i> <?php _e('View'); ?></a>
+                    </td>
+                </tr>
+                <?php $i++; ?>
+            <?php } ?>
+        </table>
+    <?php } else { ?>
+        <div class="alert alert-warning" role="alert"><?php _e('You dont have any order yet'); ?></div>
+    <?php } ?>
+    <hr/>
+    <h3><?php _e('Installment list'); ?></h3>
+    <table class="table table-striped table-bordered table-condensed small">
+        <tr>
+            <th class="text-center col-md-table-16"><?php _e('10 th'); ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[0]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[1]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[2]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[3]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[4]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[5]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[6]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[7]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[8]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[9]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[10]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[11]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[12]['10-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php _e('Total'); ?></td>
+        </tr>
+        <?php foreach ($installment['all']['10-order'] as $orderItem) { ?>
+            <tr class="text-muted">
+                <td class="text-center"><a title="<?php echo $block['resources']['orders'][$orderItem]['code']; ?>" href="<?php echo $this->url('order', array('module' => 'order', 'controller' => 'detail', 'id' => $block['resources']['orders'][$orderItem]['id'])); ?>"><?php echo $block['resources']['orders'][$orderItem]['code']; ?></a></td>
+                <td class="text-center"><?php if ($installment[0]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[0]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[1]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[1]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[2]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[2]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[3]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[3]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[4]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[4]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[5]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[5]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[6]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[6]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[7]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[7]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[8]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[8]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[9]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[9]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[10]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[10]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[11]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[11]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if ($installment[12]['10-invoice'][$orderItem]['total_price_view']) {echo $installment[12]['10-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"></td>
+            </tr>
+        <?php } ?>
+        <tr>
+            <td class="text-center"><?php _e('Amount'); ?></td>
+            <td class="text-center"><?php echo $installment[0]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[1]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[2]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[3]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[4]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[5]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[6]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[7]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[8]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[9]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[10]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[11]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[12]['10-sun']; ?></td>
+            <td class="text-center"><?php echo $installment['all']['10-sun-view']; ?></td>
+        </tr>
+    </table>
+    <table class="table table-striped table-bordered table-condensed small">
+        <tr>
+            <th class="text-center col-md-table-16"><?php _e('20 th'); ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[0]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[1]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[2]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[3]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[4]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[5]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[6]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[7]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[8]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[9]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[10]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[11]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[12]['20-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php _e('Total'); ?></td>
+        </tr>
+        <?php foreach ($installment['all']['20-order'] as $orderItem) { ?>
+            <tr class="text-muted">
+                <td class="text-center"><a title="<?php echo $block['resources']['orders'][$orderItem]['code']; ?>" href="<?php echo $this->url('order', array('module' => 'order', 'controller' => 'detail', 'id' => $block['resources']['orders'][$orderItem]['id'])); ?>"><?php echo $block['resources']['orders'][$orderItem]['code']; ?></a></td>
+                <td class="text-center"><?php if (isset($installment[0]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[0]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[1]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[1]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[2]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[2]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[3]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[3]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[4]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[4]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[5]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[5]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[6]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[6]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[7]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[7]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[8]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[8]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[9]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[9]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[10]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[10]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[11]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[11]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[12]['20-invoice'][$orderItem]['total_price_view'])) {echo $installment[12]['20-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"></td>
+            </tr>
+        <?php } ?>
+        <tr>
+            <td class="text-center"><?php _e('Amount'); ?></td>
+            <td class="text-center"><?php echo $installment[0]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[1]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[2]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[3]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[4]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[5]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[6]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[7]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[8]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[9]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[10]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[11]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[12]['20-sun']; ?></td>
+            <td class="text-center"><?php echo $installment['all']['20-sun-view']; ?></td>
+        </tr>
+    </table>
+    <table class="table table-striped table-bordered table-condensed small">
+        <tr>
+            <th class="text-center col-md-table-16"><?php _e('30 th'); ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[0]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[1]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[2]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[3]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[4]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[5]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[6]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[7]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[8]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[9]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[10]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[11]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php echo $installment[12]['30-view']; ?></th>
+            <th class="text-center col-md-table-16"><?php _e('Total'); ?></td>
+        </tr>
+        <?php foreach ($installment['all']['30-order'] as $orderItem) { ?>
+            <tr class="text-muted">
+                <td class="text-center"><a title="<?php echo $block['resources']['orders'][$orderItem]['code']; ?>" href="<?php echo $this->url('order', array('module' => 'order', 'controller' => 'detail', 'id' => $block['resources']['orders'][$orderItem]['id'])); ?>"><?php echo $block['resources']['orders'][$orderItem]['code']; ?></a></td>
+                <td class="text-center"><?php if (isset($installment[0]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[0]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[1]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[1]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[2]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[2]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[3]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[3]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[4]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[4]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[5]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[5]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[6]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[6]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[7]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[7]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[8]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[8]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[9]['30-invoice'][$orderItem]['total_price_view'])) { echo $installment[9]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[10]['30-invoice'][$orderItem]['total_price_view'])) {echo $installment[10]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[11]['30-invoice'][$orderItem]['total_price_view'])) {echo $installment[11]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"><?php if (isset($installment[12]['30-invoice'][$orderItem]['total_price_view'])) {echo $installment[12]['30-invoice'][$orderItem]['total_price_view'];} ?></td>
+                <td class="text-center"></td>
+            </tr>
+        <?php } ?>
+        <tr>
+            <td class="text-center"><?php _e('Amount'); ?></td>
+            <td class="text-center"><?php echo $installment[0]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[1]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[2]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[3]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[4]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[5]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[6]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[7]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[8]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[9]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[10]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[11]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment[12]['30-sun']; ?></td>
+            <td class="text-center"><?php echo $installment['all']['30-sun-view']; ?></td>
+        </tr>
+    </table>
+    <?php if (isset($installment['additional']['invoice']) && !empty($installment['additional']['invoice'])) { ?>
+        <table class="table table-striped table-bordered table-condensed small">
+            <tr>
+                <th colspan="3" class="text-center col-md-3"><?php _e('Additional invoices'); ?></th>
+                <th colspan="12" class="text-center col-md-8"><?php _e('Due date'); ?></th>
+                <th colspan="1" class="text-center col-md-1"><?php _e('Total'); ?></td>
+            </tr>
+            <?php foreach ($installment['additional']['invoice'] as $invoiceItem) { ?>
+                <tr class="text-muted">
+                    <td colspan="3" class="text-center"><a title="<?php echo $invoiceItem['id']; ?>" href="<?php echo $invoiceItem['order_url']; ?>"><?php echo $block['resources']['orders'][$invoiceItem['order']]['code']; ?> - <?php echo $invoiceItem['id']; ?></a></td>
+                    <td colspan="12" class="text-center"><?php echo $invoiceItem['time_duedate_view']; ?></td>
+                    <td colspan="1" class="text-center"><?php if (isset($invoiceItem['total_price_view'])) { echo $invoiceItem['total_price_view'];} ?></td>
+                </tr>
+            <?php } ?>
+            <tr>
+                <td colspan="15"><?php _e('Amount'); ?></td>
+                <td colspan="1" class="text-center"><?php echo $installment['additional']['sun']; ?></td>
+            </tr>
+        </table>
+    <?php } ?>
+    <?php if ($installment['delay']['total'] > 0) { ?>
+        <table class="table table-striped table-bordered table-condensed small">
+            <tr>
+                <th class="text-center col-md-11">معوقه</th>
+                <th class="text-center col-md-1"><?php echo $installment['delay']['total-view']; ?></th>
+            </tr>
+        </table>
+    <?php } ?>
+    <table class="table table-striped table-bordered table-condensed small">
+        <tr>
+            <th class="text-center col-md-11">جمع کل</th>
+            <th class="text-center col-md-1"><?php echo $installment['total-view']; ?></th>
+        </tr>
+    </table>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                var ctx = document.getElementById('chart-sum').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        datasets: [{
+                            data: [
+                                <?php echo $list['paid']['sum']; ?>,
+                                <?php echo $list['unPaid']['sum']; ?>,
+                                <?php echo $list['delayed']['sum']; ?>,
+                            ],
+                            backgroundColor: [
+                                'rgb(75, 192, 192)', // green
+                                'rgb(255, 159, 64)', // orange
+                                'rgb(255, 99, 132)', // red
+                            ]
+                        }],
+                        labels: [
+                            "<?php _e('Paid') ?>",
+                            "<?php _e('UnPaid') ?>",
+                            "<?php _e('Delayed') ?>",
+                        ]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            });
+            $(document).ready(function () {
+                var ctx = document.getElementById('chart-count').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        datasets: [{
+                            data: [
+                                <?php echo $list['paid']['count']; ?>,
+                                <?php echo $list['unPaid']['count']; ?>,
+                                <?php echo $list['delayed']['count']; ?>,
+                            ],
+                            backgroundColor: [
+                                'rgb(75, 192, 192)', // green
+                                'rgb(255, 159, 64)', // orange
+                                'rgb(255, 99, 132)', // red
+                            ]
+                        }],
+                        labels: [
+                            "<?php _e('Paid') ?>",
+                            "<?php _e('UnPaid') ?>",
+                            "<?php _e('Delayed') ?>",
+                        ]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            });
+            $(document).ready(function () {
+                var ctx = document.getElementById('chart-sum-polar').getContext('2d');
+                new Chart(ctx, {
+                    type: 'polarArea',
+                    data: {
+                        datasets: [{
+                            data: [
+                                <?php echo $list['paid']['sum']; ?>,
+                                <?php echo $list['unPaid']['sum']; ?>,
+                                <?php echo $list['delayed']['sum']; ?>,
+                            ],
+                            backgroundColor: [
+                                'rgb(75, 192, 192)', // green
+                                'rgb(255, 159, 64)', // orange
+                                'rgb(255, 99, 132)', // red
+                            ]
+                        }],
+                        labels: [
+                            "<?php _e('Paid') ?>",
+                            "<?php _e('UnPaid') ?>",
+                            "<?php _e('Delayed') ?>",
+                        ]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            });
+            $(document).ready(function () {
+                var ctx = document.getElementById('chart-count-polar').getContext('2d');
+                new Chart(ctx, {
+                    type: 'polarArea',
+                    data: {
+                        datasets: [{
+                            data: [
+                                <?php echo $list['paid']['count']; ?>,
+                                <?php echo $list['unPaid']['count']; ?>,
+                                <?php echo $list['delayed']['count']; ?>,
+                            ],
+                            backgroundColor: [
+                                'rgb(75, 192, 192)', // green
+                                'rgb(255, 159, 64)', // orange
+                                'rgb(255, 99, 132)', // red
+                            ]
+                        }],
+                        labels: [
+                            "<?php _e('Paid') ?>",
+                            "<?php _e('UnPaid') ?>",
+                            "<?php _e('Delayed') ?>",
+                        ]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            });
+            $(document).ready(function () {
+                var ctx = document.getElementById('chart-invoice').getContext('2d');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: <?php echo $chart['label']; ?>,
+                        datasets: [{
+                            label: "<?php _e('Paid invoice'); ?>",
+                            fill: false,
+                            backgroundColor: 'rgb(255, 99, 132)', // red
+                            borderColor: 'rgb(255, 99, 132)',     // red
+                            data: <?php echo $chart['paid']; ?>,
+                            //showLine: false,
+                            pointRadius: 5,
+                            pointHoverRadius: 10,
+                        }, {
+                            label: "<?php _e('DuDate invoice'); ?>",
+                            fill: false,
+                            backgroundColor: 'rgb(75, 192, 192)', // green
+                            borderColor: 'rgb(75, 192, 192)',     // green
+                            data: <?php echo $chart['time']; ?>,
+                            //showLine: false,
+                            pointRadius: 5,
+                            pointHoverRadius: 10,
+                        }, {
+                            label: "<?php _e('Create invoice'); ?>",
+                            fill: false,
+                            backgroundColor: 'rgb(54, 162, 235)', // blue
+                            borderColor: 'rgb(54, 162, 235)',     // blue
+                            data: <?php echo $chart['create']; ?>,
+                            //showLine: false,
+                            pointRadius: 5,
+                            pointHoverRadius: 10,
+                        }]
+                    },
+                    options: {}
+                });
+            });
+        })(jQuery)
+    </script>
+<?php } else { ?>
+    <div class="list-group clearfix">
+        <?php foreach ($users as $user) { ?>
+            <div class="list-group-item col-md-3">
+                <a href="<?php echo $this->escape($user['view_url']); ?>">
+                    <?php echo $user['avatar']; ?>
+                    <?php echo $this->escape($user['first_name']); ?>
+                    <?php echo $this->escape($user['last_name']); ?>
+                </a>
+            </div>
+        <?php } ?>
+    </div>
+<?php } ?>
