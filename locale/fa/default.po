@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-01-04 12:04+0330\n"
+"POT-Creation-Date: 2018-01-04 12:21+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -113,14 +113,16 @@ msgstr "تاریخ آخرین قسط"
 #: template/admin/analytic-company.phtml:97
 #: template/admin/analytic-company.phtml:302
 #: template/admin/analytic-user.phtml:176
+#: template/admin/analytic-user.phtml:216
+#: template/admin/analytic-user.phtml:249
 msgid "Action"
 msgstr "عملکرد"
 
-#: template/admin/analytic-company.phtml:155
+#: template/admin/analytic-company.phtml:154
 msgid "View analytic"
 msgstr "آمار"
 
-#: template/admin/analytic-company.phtml:158
+#: template/admin/analytic-company.phtml:157
 msgid "Fast view"
 msgstr "نمایش سریع"
 
@@ -149,10 +151,10 @@ msgstr "قسط معوقه"
 #: template/admin/analytic-summary.phtml:139
 #: template/admin/analytic-summary.phtml:167
 #: template/admin/analytic-summary.phtml:195
-#: template/admin/analytic-user.phtml:429
-#: template/admin/analytic-user.phtml:457
-#: template/admin/analytic-user.phtml:485
-#: template/admin/analytic-user.phtml:513
+#: template/admin/analytic-user.phtml:495
+#: template/admin/analytic-user.phtml:523
+#: template/admin/analytic-user.phtml:551
+#: template/admin/analytic-user.phtml:579
 msgid "Paid"
 msgstr "پرداخت شده"
 
@@ -161,10 +163,10 @@ msgstr "پرداخت شده"
 #: template/admin/analytic-summary.phtml:140
 #: template/admin/analytic-summary.phtml:168
 #: template/admin/analytic-summary.phtml:196
-#: template/admin/analytic-user.phtml:430
-#: template/admin/analytic-user.phtml:458
-#: template/admin/analytic-user.phtml:486
-#: template/admin/analytic-user.phtml:514
+#: template/admin/analytic-user.phtml:496
+#: template/admin/analytic-user.phtml:524
+#: template/admin/analytic-user.phtml:552
+#: template/admin/analytic-user.phtml:580
 msgid "UnPaid"
 msgstr "پرداخت نشده"
 
@@ -173,25 +175,25 @@ msgstr "پرداخت نشده"
 #: template/admin/analytic-summary.phtml:141
 #: template/admin/analytic-summary.phtml:169
 #: template/admin/analytic-summary.phtml:197
-#: template/admin/analytic-user.phtml:431
-#: template/admin/analytic-user.phtml:459
-#: template/admin/analytic-user.phtml:487
-#: template/admin/analytic-user.phtml:515
+#: template/admin/analytic-user.phtml:497
+#: template/admin/analytic-user.phtml:525
+#: template/admin/analytic-user.phtml:553
+#: template/admin/analytic-user.phtml:581
 msgid "Delayed"
 msgstr "معوقه"
 
 #: template/admin/analytic-company.phtml:262
-#: template/admin/analytic-user.phtml:530
+#: template/admin/analytic-user.phtml:596
 msgid "Paid invoice"
 msgstr "تعداد قسط پرداخت شده"
 
 #: template/admin/analytic-company.phtml:271
-#: template/admin/analytic-user.phtml:539
+#: template/admin/analytic-user.phtml:605
 msgid "DuDate invoice"
 msgstr "تعداد قسط معوقه"
 
 #: template/admin/analytic-company.phtml:280
-#: template/admin/analytic-user.phtml:548
+#: template/admin/analytic-user.phtml:614
 msgid "Create invoice"
 msgstr "تعداد قسط ایجاد شده"
 
@@ -252,6 +254,8 @@ msgid "Code"
 msgstr "کد"
 
 #: template/admin/analytic-user.phtml:173
+#: template/admin/analytic-user.phtml:214
+#: template/admin/analytic-user.phtml:247
 msgid "Product / service"
 msgstr "محصول / خدمت"
 
@@ -265,58 +269,85 @@ msgstr "قیمت"
 
 #: template/admin/analytic-user.phtml:193
 #: template/admin/analytic-user.phtml:199
+#: template/admin/analytic-user.phtml:231
+#: template/admin/analytic-user.phtml:233
+#: template/admin/analytic-user.phtml:264
+#: template/admin/analytic-user.phtml:266
 msgid "View"
 msgstr "مشاهده"
 
 #: template/admin/analytic-user.phtml:206
-msgid "You dont have any order yet"
-msgstr "هنوز هیچ سفارشی ایجاد نشده است"
+msgid "This user dont have any order yet"
+msgstr "این کاربر هنوز سفارشی ثبت نکرده است"
 
 #: template/admin/analytic-user.phtml:209
-msgid "Installment list"
-msgstr "فهرست اقساط"
+msgid "Delayed invoice list"
+msgstr "فهرست قسط های معوقه"
 
-#: template/admin/analytic-user.phtml:212
-msgid "10 th"
-msgstr "سررسید های دهم"
-
-#: template/admin/analytic-user.phtml:226
-#: template/admin/analytic-user.phtml:281
-#: template/admin/analytic-user.phtml:336
-#: template/admin/analytic-user.phtml:380
-msgid "Total"
-msgstr "تعداد اقساط"
-
-#: template/admin/analytic-user.phtml:248
-#: template/admin/analytic-user.phtml:303
-#: template/admin/analytic-user.phtml:358
-#: template/admin/analytic-user.phtml:390
+#: template/admin/analytic-user.phtml:213
+#: template/admin/analytic-user.phtml:246
+#: template/admin/analytic-user.phtml:314
+#: template/admin/analytic-user.phtml:369
+#: template/admin/analytic-user.phtml:424
+#: template/admin/analytic-user.phtml:456
 msgid "Amount"
 msgstr "مبلغ"
 
-#: template/admin/analytic-user.phtml:267
-msgid "20 th"
-msgstr "سررسید های بیستم"
-
-#: template/admin/analytic-user.phtml:322
-msgid "30 th"
-msgstr "سررسید های سی ام"
-
-#: template/admin/analytic-user.phtml:378
-msgid "Additional invoices"
-msgstr "سایر فاکتور ها"
-
-#: template/admin/analytic-user.phtml:379
+#: template/admin/analytic-user.phtml:215
+#: template/admin/analytic-user.phtml:248
+#: template/admin/analytic-user.phtml:445
 msgid "Due date"
 msgstr "سررسید پرداخت"
 
-#: template/admin/analytic-user.phtml:566
+#: template/admin/analytic-user.phtml:239
+msgid "This user dont have any delayed invoice"
+msgstr "این کاربر هیچ قسط معوقه ای ندارد"
+
+#: template/admin/analytic-user.phtml:242
+msgid "Next paid invoice list"
+msgstr "فهرست قسط های دوره بعد"
+
+#: template/admin/analytic-user.phtml:272
+msgid "This user dont have any next paid"
+msgstr "این کاربر در دوره بعد پرداخت هیچ قسطی ندارد"
+
+#: template/admin/analytic-user.phtml:275
+msgid "Installment list"
+msgstr "فهرست اقساط"
+
+#: template/admin/analytic-user.phtml:278
+msgid "10 th"
+msgstr "سررسید های دهم"
+
+#: template/admin/analytic-user.phtml:292
+#: template/admin/analytic-user.phtml:347
+#: template/admin/analytic-user.phtml:402
+#: template/admin/analytic-user.phtml:446
+msgid "Total"
+msgstr "تعداد اقساط"
+
+#: template/admin/analytic-user.phtml:333
+msgid "20 th"
+msgstr "سررسید های بیستم"
+
+#: template/admin/analytic-user.phtml:388
+msgid "30 th"
+msgstr "سررسید های سی ام"
+
+#: template/admin/analytic-user.phtml:444
+msgid "Additional invoices"
+msgstr "سایر فاکتور ها"
+
+#: template/admin/analytic-user.phtml:632
 msgid "List of users"
 msgstr "فهرست کاربران"
 
-#: template/admin/analytic-user.phtml:570
+#: template/admin/analytic-user.phtml:636
 msgid "Search for users ..."
 msgstr "جستجوی نام کاربر ..."
+
+#~ msgid "You dont have any order yet"
+#~ msgstr "هنوز هیچ سفارشی ایجاد نشده است"
 
 #~ msgid "View details"
 #~ msgstr "اطلاعات بیشتر"

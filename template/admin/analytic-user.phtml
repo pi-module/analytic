@@ -170,7 +170,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
             <tr>
                 <th class="text-center"><?php _e('ID'); ?></th>
                 <th class="text-center"><?php _e('Code'); ?></th>
-                <td class="text-center"><?php _e('Product / service'); ?></td>
+                <th class="text-center"><?php _e('Product / service'); ?></th>
                 <th class="text-center"><?php _e('Time'); ?></th>
                 <th class="text-center"><?php _e('Price'); ?></th>
                 <th class="text-center"><?php _e('Action'); ?></th>
@@ -196,14 +196,80 @@ $this->js($this->assetModule('js/Chart.min.js'));
                                'controller' => 'order',
                                'action'     => 'view',
                                'id'         => $order['id']])); ?>"><i
-                                    class="fa fa-edit"></i> <?php _e('View'); ?></a>
+                                    class="fa fa-eye"></i> <?php _e('View'); ?></a>
                     </td>
                 </tr>
                 <?php $i++; ?>
             <?php } ?>
         </table>
     <?php } else { ?>
-        <div class="alert alert-warning" role="alert"><?php _e('You dont have any order yet'); ?></div>
+        <div class="alert alert-warning" role="alert"><?php _e('This user dont have any order yet'); ?></div>
+    <?php } ?>
+    <hr/>
+    <h3><?php _e('Delayed invoice list'); ?></h3>
+    <?php if ($user['invoiceDelayedList']) { ?>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <th class="text-center"><?php _e('Amount'); ?></th>
+                <th class="text-center"><?php _e('Product / service'); ?></th>
+                <th class="text-center"><?php _e('Due date'); ?></th>
+                <th class="text-center"><?php _e('Action'); ?></th>
+            </tr>
+            <?php foreach($user['invoiceDelayedList'] as $invoiceId) { ?>
+                <?php $invoice = $user['invoice'][$invoiceId]; ?>
+                <tr>
+                    <td class="text-center"><?php echo $this->escape($invoice['total_price_view']); ?></td>
+                    <td class="text-center">
+                        <?php $productsList = array();
+                        foreach ($orderList[$invoice['order']]['products'] as $product) {
+                            $productsList[] = $product['details']['title'];
+                        }
+                        echo implode(' , ',$productsList); ?>
+                    </td>
+                    <td class="text-center"><?php echo $this->escape($invoice['time_duedate_view']); ?></td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-xs" title="<?php _e('View'); ?>"
+                           href="<?php echo $this->url('order', array('module' => 'order', 'controller' => 'detail', 'id' => $invoice['order'])); ?>"><i
+                                    class="fa fa-eye"></i> <?php _e('View'); ?></a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+    <?php } else { ?>
+        <div class="alert alert-warning" role="alert"><?php _e('This user dont have any delayed invoice'); ?></div>
+    <?php } ?>
+    <hr/>
+    <h3><?php _e('Next paid invoice list'); ?></h3>
+    <?php if ($user['invoiceNextPaidList']) { ?>
+        <table class="table table-striped table-bordered table-condensed">
+            <tr>
+                <th class="text-center"><?php _e('Amount'); ?></th>
+                <th class="text-center"><?php _e('Product / service'); ?></th>
+                <th class="text-center"><?php _e('Due date'); ?></th>
+                <th class="text-center"><?php _e('Action'); ?></th>
+            </tr>
+            <?php foreach($user['invoiceNextPaidList'] as $invoiceId) { ?>
+                <?php $invoice = $user['invoice'][$invoiceId]; ?>
+                <tr>
+                    <td class="text-center"><?php echo $this->escape($invoice['total_price_view']); ?></td>
+                    <td class="text-center">
+                        <?php $productsList = array();
+                        foreach ($orderList[$invoice['order']]['products'] as $product) {
+                            $productsList[] = $product['details']['title'];
+                        }
+                        echo implode(' , ',$productsList); ?>
+                    </td>
+                    <td class="text-center"><?php echo $this->escape($invoice['time_duedate_view']); ?></td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-xs" title="<?php _e('View'); ?>"
+                           href="<?php echo $this->url('order', array('module' => 'order', 'controller' => 'detail', 'id' => $invoice['order'])); ?>"><i
+                                    class="fa fa-eye"></i> <?php _e('View'); ?></a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </table>
+    <?php } else { ?>
+        <div class="alert alert-warning" role="alert"><?php _e('This user dont have any next paid'); ?></div>
     <?php } ?>
     <hr/>
     <h3><?php _e('Installment list'); ?></h3>
