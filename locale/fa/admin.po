@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2018-01-04 11:40+0330\n"
+"POT-Creation-Date: 2018-01-21 18:16+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -19,9 +19,17 @@ msgstr ""
 msgid "Admin"
 msgstr "مدیریت"
 
-#: config/config.php:25
+#: config/config.php:21
+msgid "Panel"
+msgstr "پنل"
+
+#: config/config.php:29
 msgid "Perpage"
 msgstr "تعداد در هر صفحه"
+
+#: config/config.php:38
+msgid "Panel admin"
+msgstr "مدیریت پنل"
 
 #: config/module.php:16 config/page.php:17 config/permission.php:17
 msgid "Analytic"

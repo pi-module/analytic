@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2018-01-04 12:21+0330\n"
+"POT-Creation-Date: 2018-01-21 18:13+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -15,14 +15,24 @@ msgstr ""
 "X-Poedit-Basepath: ../..\n"
 "X-Poedit-SearchPath-0: .\n"
 
+#: src/Controller/Front/IndexController.php:50
+msgid "You are not access to panel"
+msgstr "شما دسترسی مشاهده پنل آمار و اطلاعات را ندارید"
+
+#: src/Controller/Front/IndexController.php:57
+msgid "You company information not set"
+msgstr "اطلاعات شرکت شما تنظیم نشده است"
+
 #: template/admin/analytic-company.phtml:10
+#: template/front/analytic-panel.phtml:8
 #, php-format
 msgid "%s company dashboard"
 msgstr "اطلاعات مدیریتی شرکت %s"
 
 #: template/admin/analytic-company.phtml:17
 #: template/admin/analytic-summary.phtml:26
-#: template/admin/analytic-user.phtml:31
+#: template/admin/analytic-user.phtml:31 template/front/analytic-panel.phtml:15
+#: template/front/analytic-user.phtml:30
 #, php-format
 msgid "%s order and %s price."
 msgstr ""
@@ -31,7 +41,8 @@ msgstr ""
 
 #: template/admin/analytic-company.phtml:28
 #: template/admin/analytic-summary.phtml:35
-#: template/admin/analytic-user.phtml:40
+#: template/admin/analytic-user.phtml:40 template/front/analytic-panel.phtml:26
+#: template/front/analytic-user.phtml:39
 #, php-format
 msgid "%s paid invoice and %s price."
 msgstr ""
@@ -40,7 +51,8 @@ msgstr ""
 
 #: template/admin/analytic-company.phtml:39
 #: template/admin/analytic-summary.phtml:44
-#: template/admin/analytic-user.phtml:49
+#: template/admin/analytic-user.phtml:49 template/front/analytic-panel.phtml:37
+#: template/front/analytic-user.phtml:48
 #, php-format
 msgid "%s unpaid invoice and %s price."
 msgstr ""
@@ -48,6 +60,7 @@ msgstr ""
 "<strong>%s</strong> می باشد."
 
 #: template/admin/analytic-company.phtml:50
+#: template/front/analytic-panel.phtml:48
 #, php-format
 msgid "%s next paid invoice and %s price."
 msgstr ""
@@ -56,7 +69,8 @@ msgstr ""
 
 #: template/admin/analytic-company.phtml:61
 #: template/admin/analytic-summary.phtml:53
-#: template/admin/analytic-user.phtml:58
+#: template/admin/analytic-user.phtml:58 template/front/analytic-panel.phtml:59
+#: template/front/analytic-user.phtml:57
 #, php-format
 msgid "%s delayed invoice and %s price."
 msgstr ""
@@ -64,154 +78,226 @@ msgstr ""
 "<strong>%s</strong> می باشد."
 
 #: template/admin/analytic-company.phtml:72
+#: template/front/analytic-panel.phtml:70
 msgid "Payment chart"
 msgstr "نمودار پرداخت"
 
 #: template/admin/analytic-company.phtml:78
 #: template/admin/analytic-user.phtml:160
+#: template/front/analytic-panel.phtml:76
+#: template/front/analytic-user.phtml:159
 msgid "Chart report"
 msgstr "گزارش نموداری"
 
-#: template/admin/analytic-company.phtml:86
+#: template/admin/analytic-company.phtml:88
+#: template/admin/analytic-summary.phtml:82
+#: template/front/analytic-panel.phtml:86
+msgid "Next days information"
+msgstr "اطلاعات پرداخت های آتی"
+
+#: template/admin/analytic-company.phtml:94
+#: template/admin/analytic-summary.phtml:102
+#: template/front/analytic-panel.phtml:92
+msgid "Date"
+msgstr "تاریخ"
+
+#: template/admin/analytic-company.phtml:95
+#: template/admin/analytic-summary.phtml:103
+#: template/front/analytic-panel.phtml:93
+msgid "Count"
+msgstr "تعداد"
+
+#: template/admin/analytic-company.phtml:96
+#: template/admin/analytic-summary.phtml:104
+#: template/front/analytic-panel.phtml:94
+msgid "Sum"
+msgstr "مجموع مبلغ"
+
+#: template/admin/analytic-company.phtml:115
+#: template/front/analytic-panel.phtml:113
 msgid "User report"
 msgstr "گزارش کاربران"
 
-#: template/admin/analytic-company.phtml:90
+#: template/admin/analytic-company.phtml:119
+#: template/front/analytic-panel.phtml:117
 msgid "Name"
 msgstr "نام"
 
-#: template/admin/analytic-company.phtml:91
+#: template/admin/analytic-company.phtml:120
 #: template/admin/analytic-user.phtml:106
+#: template/front/analytic-panel.phtml:118
+#: template/front/analytic-user.phtml:105
 msgid "Total orders"
 msgstr "کل سفارش ها"
 
-#: template/admin/analytic-company.phtml:92
+#: template/admin/analytic-company.phtml:121
 #: template/admin/analytic-user.phtml:116
+#: template/front/analytic-panel.phtml:119
+#: template/front/analytic-user.phtml:115
 msgid "Total paid"
 msgstr "اقساط پرداخت شده"
 
-#: template/admin/analytic-company.phtml:93
+#: template/admin/analytic-company.phtml:122
 #: template/admin/analytic-user.phtml:126
+#: template/front/analytic-panel.phtml:120
+#: template/front/analytic-user.phtml:125
 msgid "Total not paid"
 msgstr "اقساط پرداخت نشده"
 
-#: template/admin/analytic-company.phtml:94
+#: template/admin/analytic-company.phtml:123
 #: template/admin/analytic-user.phtml:136
+#: template/front/analytic-panel.phtml:121
+#: template/front/analytic-user.phtml:135
 msgid "Total delayed"
 msgstr "اقساط معوقه"
 
-#: template/admin/analytic-company.phtml:95
+#: template/admin/analytic-company.phtml:124
 #: template/admin/analytic-user.phtml:146
+#: template/front/analytic-panel.phtml:122
+#: template/front/analytic-user.phtml:145
 msgid "Current credit"
 msgstr "اعتبار فعلی"
 
-#: template/admin/analytic-company.phtml:96
+#: template/admin/analytic-company.phtml:125
 #: template/admin/analytic-user.phtml:152
+#: template/front/analytic-panel.phtml:123
+#: template/front/analytic-user.phtml:151
 msgid "Last invoice time"
 msgstr "تاریخ آخرین قسط"
 
-#: template/admin/analytic-company.phtml:97
-#: template/admin/analytic-company.phtml:302
+#: template/admin/analytic-company.phtml:126
+#: template/admin/analytic-company.phtml:353
 #: template/admin/analytic-user.phtml:176
 #: template/admin/analytic-user.phtml:216
 #: template/admin/analytic-user.phtml:249
+#: template/front/analytic-panel.phtml:124
+#: template/front/analytic-user.phtml:176
+#: template/front/analytic-user.phtml:220
+#: template/front/analytic-user.phtml:261
 msgid "Action"
 msgstr "عملکرد"
 
-#: template/admin/analytic-company.phtml:154
+#: template/admin/analytic-company.phtml:183
 msgid "View analytic"
 msgstr "آمار"
 
-#: template/admin/analytic-company.phtml:157
+#: template/admin/analytic-company.phtml:186
 msgid "Fast view"
 msgstr "نمایش سریع"
 
-#: template/admin/analytic-company.phtml:164
+#: template/admin/analytic-company.phtml:193
+#: template/front/analytic-panel.phtml:180
 msgid "Total table"
 msgstr "مجموع"
 
-#: template/admin/analytic-company.phtml:195
+#: template/admin/analytic-company.phtml:224
+#: template/front/analytic-panel.phtml:203
 msgid "Info finish"
 msgstr "تسویه شده"
 
-#: template/admin/analytic-company.phtml:196
+#: template/admin/analytic-company.phtml:225
+#: template/front/analytic-panel.phtml:204
 msgid "Info unpaid"
 msgstr "دارای قسط پرداخت نشده"
 
-#: template/admin/analytic-company.phtml:197
+#: template/admin/analytic-company.phtml:226
+#: template/front/analytic-panel.phtml:205
 msgid "Info next"
 msgstr "سرید قسط تا ۱۰ روز"
 
-#: template/admin/analytic-company.phtml:198
+#: template/admin/analytic-company.phtml:227
+#: template/front/analytic-panel.phtml:206
 msgid "Info delayed"
 msgstr "قسط معوقه"
 
-#: template/admin/analytic-company.phtml:244
-#: template/admin/analytic-summary.phtml:111
-#: template/admin/analytic-summary.phtml:139
-#: template/admin/analytic-summary.phtml:167
-#: template/admin/analytic-summary.phtml:195
+#: template/admin/analytic-company.phtml:273
+#: template/admin/analytic-summary.phtml:151
+#: template/admin/analytic-summary.phtml:179
 #: template/admin/analytic-user.phtml:495
 #: template/admin/analytic-user.phtml:523
 #: template/admin/analytic-user.phtml:551
 #: template/admin/analytic-user.phtml:579
+#: template/front/analytic-panel.phtml:229
+#: template/front/analytic-user.phtml:604
+#: template/front/analytic-user.phtml:632
+#: template/front/analytic-user.phtml:660
+#: template/front/analytic-user.phtml:688
 msgid "Paid"
 msgstr "پرداخت شده"
 
-#: template/admin/analytic-company.phtml:245
-#: template/admin/analytic-summary.phtml:112
-#: template/admin/analytic-summary.phtml:140
-#: template/admin/analytic-summary.phtml:168
-#: template/admin/analytic-summary.phtml:196
+#: template/admin/analytic-company.phtml:274
+#: template/admin/analytic-summary.phtml:152
+#: template/admin/analytic-summary.phtml:180
 #: template/admin/analytic-user.phtml:496
 #: template/admin/analytic-user.phtml:524
 #: template/admin/analytic-user.phtml:552
 #: template/admin/analytic-user.phtml:580
+#: template/front/analytic-panel.phtml:230
+#: template/front/analytic-user.phtml:605
+#: template/front/analytic-user.phtml:633
+#: template/front/analytic-user.phtml:661
+#: template/front/analytic-user.phtml:689
 msgid "UnPaid"
 msgstr "پرداخت نشده"
 
-#: template/admin/analytic-company.phtml:246
-#: template/admin/analytic-summary.phtml:113
-#: template/admin/analytic-summary.phtml:141
-#: template/admin/analytic-summary.phtml:169
-#: template/admin/analytic-summary.phtml:197
+#: template/admin/analytic-company.phtml:275
+#: template/admin/analytic-summary.phtml:153
+#: template/admin/analytic-summary.phtml:181
 #: template/admin/analytic-user.phtml:497
 #: template/admin/analytic-user.phtml:525
 #: template/admin/analytic-user.phtml:553
 #: template/admin/analytic-user.phtml:581
+#: template/front/analytic-panel.phtml:231
+#: template/front/analytic-user.phtml:606
+#: template/front/analytic-user.phtml:634
+#: template/front/analytic-user.phtml:662
+#: template/front/analytic-user.phtml:690
 msgid "Delayed"
 msgstr "معوقه"
 
-#: template/admin/analytic-company.phtml:262
+#: template/admin/analytic-company.phtml:291
 #: template/admin/analytic-user.phtml:596
+#: template/front/analytic-panel.phtml:247
+#: template/front/analytic-user.phtml:705
 msgid "Paid invoice"
 msgstr "تعداد قسط پرداخت شده"
 
-#: template/admin/analytic-company.phtml:271
+#: template/admin/analytic-company.phtml:300
 #: template/admin/analytic-user.phtml:605
+#: template/front/analytic-panel.phtml:256
+#: template/front/analytic-user.phtml:714
 msgid "DuDate invoice"
 msgstr "تعداد قسط معوقه"
 
-#: template/admin/analytic-company.phtml:280
+#: template/admin/analytic-company.phtml:309
 #: template/admin/analytic-user.phtml:614
+#: template/front/analytic-panel.phtml:265
+#: template/front/analytic-user.phtml:723
 msgid "Create invoice"
 msgstr "تعداد قسط ایجاد شده"
 
-#: template/admin/analytic-company.phtml:297
+#: template/admin/analytic-company.phtml:329
+#: template/admin/analytic-summary.phtml:196
+#: template/front/analytic-panel.phtml:285
+msgid "Sum of next months"
+msgstr "مجموع مبالغ پرداختی آتی"
+
+#: template/admin/analytic-company.phtml:347
 msgid "List of company"
 msgstr "فهرست شرکت ها"
 
-#: template/admin/analytic-company.phtml:300
+#: template/admin/analytic-company.phtml:351
 #: template/admin/analytic-user.phtml:171
+#: template/front/analytic-user.phtml:170
 msgid "ID"
 msgstr "شناسه"
 
-#: template/admin/analytic-company.phtml:301
+#: template/admin/analytic-company.phtml:352
 msgid "Company"
 msgstr "شرکت"
 
-#: template/admin/analytic-company.phtml:309
-#: template/admin/analytic-company.phtml:311
+#: template/admin/analytic-company.phtml:360
+#: template/admin/analytic-company.phtml:362
 msgid "View report"
 msgstr "نمایش گزارش"
 
@@ -223,47 +309,82 @@ msgstr "تومان"
 msgid "Summery report"
 msgstr "گزارش خلاصه"
 
-#: template/admin/analytic-summary.phtml:62
-#: template/admin/analytic-user.phtml:67
+#: template/admin/analytic-summary.phtml:63
+#: template/admin/analytic-user.phtml:67 template/front/analytic-user.phtml:66
 msgid "Chart sum"
 msgstr "نمودار مجموع مبالغ اقساط"
 
-#: template/admin/analytic-summary.phtml:77
-#: template/admin/analytic-user.phtml:82
+#: template/admin/analytic-summary.phtml:71
+#: template/admin/analytic-user.phtml:82 template/front/analytic-user.phtml:81
 msgid "Chart count"
 msgstr "نمودار تعداد اقساط"
 
-#: template/admin/analytic-user.phtml:99
+#: template/admin/analytic-summary.phtml:86
+#, php-format
+msgid "we have %s invoice fpr next 10 days and total price %s"
+msgstr ""
+"برای ۱۰ روز آینده <strong>%s</strong> فاکتور به مجموع مبلغ <strong>%s</"
+"strong> وجود دارد"
+
+#: template/admin/analytic-summary.phtml:93
+#, php-format
+msgid "we have %s invoice fpr next 30 days and total price %s"
+msgstr ""
+"برای ۳۰ روز آینده <strong>%s</strong> فاکتور به مجموع مبلغ <strong>%s</"
+"strong> وجود دارد"
+
+#: template/admin/analytic-summary.phtml:117
+msgid "Chart sum next months"
+msgstr "نمودار مجموع اقساط ماه های آتی"
+
+#: template/admin/analytic-summary.phtml:123
+msgid "Chart count next months"
+msgstr "نمودار تعداد اقساط ماه های آتی"
+
+#: template/admin/analytic-summary.phtml:216
+msgid "Count of next months"
+msgstr "تعداد اقساط ماه های آتی"
+
+#: template/admin/analytic-user.phtml:99 template/front/analytic-user.phtml:98
 msgid "User status"
 msgstr "وضعیت کاربر"
 
 #: template/admin/analytic-user.phtml:102
+#: template/front/analytic-user.phtml:101
 msgid "Title"
 msgstr "عنوان"
 
 #: template/admin/analytic-user.phtml:103
+#: template/front/analytic-user.phtml:102
 msgid "Value"
 msgstr "مقدار"
 
 #: template/admin/analytic-user.phtml:167
+#: template/front/analytic-user.phtml:166
 msgid "Orders list"
 msgstr "فهرست سفارش ها"
 
 #: template/admin/analytic-user.phtml:172
+#: template/front/analytic-user.phtml:171
 msgid "Code"
 msgstr "کد"
 
 #: template/admin/analytic-user.phtml:173
 #: template/admin/analytic-user.phtml:214
 #: template/admin/analytic-user.phtml:247
+#: template/front/analytic-user.phtml:172
+#: template/front/analytic-user.phtml:217
+#: template/front/analytic-user.phtml:259
 msgid "Product / service"
 msgstr "محصول / خدمت"
 
 #: template/admin/analytic-user.phtml:174
+#: template/front/analytic-user.phtml:173
 msgid "Time"
 msgstr "زمان"
 
 #: template/admin/analytic-user.phtml:175
+#: template/front/analytic-user.phtml:174
 msgid "Price"
 msgstr "قیمت"
 
@@ -273,14 +394,22 @@ msgstr "قیمت"
 #: template/admin/analytic-user.phtml:233
 #: template/admin/analytic-user.phtml:264
 #: template/admin/analytic-user.phtml:266
+#: template/front/analytic-user.phtml:195
+#: template/front/analytic-user.phtml:201
+#: template/front/analytic-user.phtml:237
+#: template/front/analytic-user.phtml:244
+#: template/front/analytic-user.phtml:276
+#: template/front/analytic-user.phtml:283
 msgid "View"
 msgstr "مشاهده"
 
 #: template/admin/analytic-user.phtml:206
+#: template/front/analytic-user.phtml:209
 msgid "This user dont have any order yet"
 msgstr "این کاربر هنوز سفارشی ثبت نکرده است"
 
 #: template/admin/analytic-user.phtml:209
+#: template/front/analytic-user.phtml:212
 msgid "Delayed invoice list"
 msgstr "فهرست قسط های معوقه"
 
@@ -290,32 +419,46 @@ msgstr "فهرست قسط های معوقه"
 #: template/admin/analytic-user.phtml:369
 #: template/admin/analytic-user.phtml:424
 #: template/admin/analytic-user.phtml:456
+#: template/front/analytic-user.phtml:216
+#: template/front/analytic-user.phtml:258
+#: template/front/analytic-user.phtml:360
+#: template/front/analytic-user.phtml:444
+#: template/front/analytic-user.phtml:528
+#: template/front/analytic-user.phtml:565
 msgid "Amount"
 msgstr "مبلغ"
 
 #: template/admin/analytic-user.phtml:215
 #: template/admin/analytic-user.phtml:248
 #: template/admin/analytic-user.phtml:445
+#: template/front/analytic-user.phtml:218
+#: template/front/analytic-user.phtml:260
+#: template/front/analytic-user.phtml:549
 msgid "Due date"
 msgstr "سررسید پرداخت"
 
 #: template/admin/analytic-user.phtml:239
+#: template/front/analytic-user.phtml:251
 msgid "This user dont have any delayed invoice"
 msgstr "این کاربر هیچ قسط معوقه ای ندارد"
 
 #: template/admin/analytic-user.phtml:242
+#: template/front/analytic-user.phtml:254
 msgid "Next paid invoice list"
 msgstr "فهرست قسط های دوره بعد"
 
 #: template/admin/analytic-user.phtml:272
+#: template/front/analytic-user.phtml:289
 msgid "This user dont have any next paid"
 msgstr "این کاربر در دوره بعد پرداخت هیچ قسطی ندارد"
 
 #: template/admin/analytic-user.phtml:275
+#: template/front/analytic-user.phtml:292
 msgid "Installment list"
 msgstr "فهرست اقساط"
 
 #: template/admin/analytic-user.phtml:278
+#: template/front/analytic-user.phtml:295
 msgid "10 th"
 msgstr "سررسید های دهم"
 
@@ -323,18 +466,25 @@ msgstr "سررسید های دهم"
 #: template/admin/analytic-user.phtml:347
 #: template/admin/analytic-user.phtml:402
 #: template/admin/analytic-user.phtml:446
+#: template/front/analytic-user.phtml:310
+#: template/front/analytic-user.phtml:394
+#: template/front/analytic-user.phtml:478
+#: template/front/analytic-user.phtml:551
 msgid "Total"
 msgstr "تعداد اقساط"
 
 #: template/admin/analytic-user.phtml:333
+#: template/front/analytic-user.phtml:379
 msgid "20 th"
 msgstr "سررسید های بیستم"
 
 #: template/admin/analytic-user.phtml:388
+#: template/front/analytic-user.phtml:463
 msgid "30 th"
 msgstr "سررسید های سی ام"
 
 #: template/admin/analytic-user.phtml:444
+#: template/front/analytic-user.phtml:548
 msgid "Additional invoices"
 msgstr "سایر فاکتور ها"
 
@@ -346,8 +496,9 @@ msgstr "فهرست کاربران"
 msgid "Search for users ..."
 msgstr "جستجوی نام کاربر ..."
 
+#: template/front/analytic-panel.phtml:174
+msgid "View details"
+msgstr "اطلاعات بیشتر"
+
 #~ msgid "You dont have any order yet"
 #~ msgstr "هنوز هیچ سفارشی ایجاد نشده است"
-
-#~ msgid "View details"
-#~ msgstr "اطلاعات بیشتر"

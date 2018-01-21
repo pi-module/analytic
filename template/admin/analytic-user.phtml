@@ -1,7 +1,7 @@
 <?php
 $this->jQuery();
 $this->backbone();
-$this->css($this->assetModule('css/front.css'));
+$this->css($this->assetModule('css/admin.css'));
 $this->js($this->assetModule('js/Chart.min.js'));
 ?>
 <?php if ($uid > 0) { ?>
@@ -595,8 +595,8 @@ $this->js($this->assetModule('js/Chart.min.js'));
                         datasets: [{
                             label: "<?php _e('Paid invoice'); ?>",
                             fill: false,
-                            backgroundColor: 'rgb(255, 99, 132)', // red
-                            borderColor: 'rgb(255, 99, 132)',     // red
+                            backgroundColor: 'rgb(75, 192, 192)', // green
+                            borderColor: 'rgb(75, 192, 192)',     // green
                             data: <?php echo $chart['paid']; ?>,
                             //showLine: false,
                             pointRadius: 5,
@@ -604,8 +604,8 @@ $this->js($this->assetModule('js/Chart.min.js'));
                         }, {
                             label: "<?php _e('DuDate invoice'); ?>",
                             fill: false,
-                            backgroundColor: 'rgb(75, 192, 192)', // green
-                            borderColor: 'rgb(75, 192, 192)',     // green
+                            backgroundColor: 'rgb(255, 99, 132)', // red
+                            borderColor: 'rgb(255, 99, 132)',     // red
                             data: <?php echo $chart['time']; ?>,
                             //showLine: false,
                             pointRadius: 5,

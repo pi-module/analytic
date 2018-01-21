@@ -17,6 +17,10 @@ return [
             'title' => _a('Admin'),
             'name'  => 'admin',
         ],
+        [
+            'title' => _a('Panel'),
+            'name'  => 'panel',
+        ],
     ],
     'item'     => [
         // Admin
@@ -27,6 +31,15 @@ return [
             'edit'        => 'text',
             'filter'      => 'number_int',
             'value'       => 25,
+        ],
+        // Panel
+        'panel_admin'             => [
+            'category'    => 'panel',
+            'title'       => _a('Panel admin'),
+            'description' => '',
+            'edit'        => 'text',
+            'filter'      => 'string',
+            'value'       => 'panel',
         ],
     ],
 ];

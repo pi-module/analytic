@@ -97,6 +97,116 @@ class IndexController extends ActionController
             $list['delayed']['count'] = $row->count;
         }
 
+        // Select next 10 days
+        $columns = [
+            'sum'   => new Expression('sum(total_price)'),
+            'count' => new Expression('count(*)'),
+        ];
+        $where   = ['status' => [1, 2], 'time_payment' => 0, 'time_duedate > ?' => (time() - (60 * 60 * 24 * 1)), 'time_duedate < ?' => (time() + (60 * 60 * 24 * 11))];
+        $select  = Pi::model('invoice', 'order')->select()->columns($columns)->where($where);
+        $rowset  = Pi::model('invoice', 'order')->selectWith($select);
+        foreach ($rowset as $row) {
+            $list['next10']['sum']   = $row->sum;
+            $list['next10']['count'] = $row->count;
+        }
+
+        // Select next 30 days
+        $columns = [
+            'sum'   => new Expression('sum(total_price)'),
+            'count' => new Expression('count(*)'),
+        ];
+        $where   = ['status' => [1, 2], 'time_payment' => 0, 'time_duedate > ?' => (time() - (60 * 60 * 24 * 1)), 'time_duedate < ?' => (time() + (60 * 60 * 24 * 31))];
+        $select  = Pi::model('invoice', 'order')->select()->columns($columns)->where($where);
+        $rowset  = Pi::model('invoice', 'order')->selectWith($select);
+        foreach ($rowset as $row) {
+            $list['next30']['sum']   = $row->sum;
+            $list['next30']['count'] = $row->count;
+        }
+
+        // require persian date class
+        require_once Pi::path('module') . '/order/src/Api/pdate.php';
+
+        // Set array
+        $key1         = sprintf('%s/%s', pdate('m', strtotime('this month')), pdate('Y', strtotime('this month')));
+        $key2         = sprintf('%s/%s', pdate('m', strtotime('+1 month')), pdate('Y', strtotime('+1 month')));
+        $key3         = sprintf('%s/%s', pdate('m', strtotime('+2 month')), pdate('Y', strtotime('+2 month')));
+        $key4         = sprintf('%s/%s', pdate('m', strtotime('+3 month')), pdate('Y', strtotime('+3 month')));
+        $key5         = sprintf('%s/%s', pdate('m', strtotime('+4 month')), pdate('Y', strtotime('+4 month')));
+        $key6         = sprintf('%s/%s', pdate('m', strtotime('+5 month')), pdate('Y', strtotime('+5 month')));
+        $key7         = sprintf('%s/%s', pdate('m', strtotime('+6 month')), pdate('Y', strtotime('+6 month')));
+        $key8         = sprintf('%s/%s', pdate('m', strtotime('+7 month')), pdate('Y', strtotime('+7 month')));
+        $key9         = sprintf('%s/%s', pdate('m', strtotime('+8 month')), pdate('Y', strtotime('+8 month')));
+        $key10        = sprintf('%s/%s', pdate('m', strtotime('+9 month')), pdate('Y', strtotime('+9 month')));
+        $key11        = sprintf('%s/%s', pdate('m', strtotime('+10 month')), pdate('Y', strtotime('+10 month')));
+        $key12        = sprintf('%s/%s', pdate('m', strtotime('+11 month')), pdate('Y', strtotime('+11 month')));
+        $month1       = pmktime(0, 0, 0, pdate('m', strtotime('this month')), 1, pdate('Y', strtotime('this month')));
+        $month2       = pmktime(0, 0, 0, pdate('m', strtotime('+1 month')), 1, pdate('Y', strtotime('+1 month')));
+        $month3       = pmktime(0, 0, 0, pdate('m', strtotime('+2 month')), 1, pdate('Y', strtotime('+2 month')));
+        $month4       = pmktime(0, 0, 0, pdate('m', strtotime('+3 month')), 1, pdate('Y', strtotime('+3 month')));
+        $month5       = pmktime(0, 0, 0, pdate('m', strtotime('+4 month')), 1, pdate('Y', strtotime('+4 month')));
+        $month6       = pmktime(0, 0, 0, pdate('m', strtotime('+5 month')), 1, pdate('Y', strtotime('+5 month')));
+        $month7       = pmktime(0, 0, 0, pdate('m', strtotime('+6 month')), 1, pdate('Y', strtotime('+6 month')));
+        $month8       = pmktime(0, 0, 0, pdate('m', strtotime('+7 month')), 1, pdate('Y', strtotime('+7 month')));
+        $month9       = pmktime(0, 0, 0, pdate('m', strtotime('+8 month')), 1, pdate('Y', strtotime('+8 month')));
+        $month10      = pmktime(0, 0, 0, pdate('m', strtotime('+9 month')), 1, pdate('Y', strtotime('+9 month')));
+        $month11      = pmktime(0, 0, 0, pdate('m', strtotime('+10 month')), 1, pdate('Y', strtotime('+10 month')));
+        $month12      = pmktime(0, 0, 0, pdate('m', strtotime('+11 month')), 1, pdate('Y', strtotime('+11 month')));
+        $month13      = pmktime(0, 0, 0, pdate('m', strtotime('+12 month')), 1, pdate('Y', strtotime('+12 month')));
+        $list['next'] = [
+            'count' => [
+                $key1 => 0, $key2 => 0, $key3 => 0, $key4 => 0, $key5 => 0, $key6 => 0, $key7 => 0,
+                $key8 => 0, $key9 => 0, $key10 => 0, $key11 => 0, $key12 => 0,
+            ],
+            'sum'   => [
+                $key1 => 0, $key2 => 0, $key3 => 0, $key4 => 0, $key5 => 0, $key6 => 0, $key7 => 0,
+                $key8 => 0, $key9 => 0, $key10 => 0, $key11 => 0, $key12 => 0,
+            ],
+        ];
+
+        // Select next days
+        $where  = ['status' => [1, 2], 'time_payment' => 0, 'time_duedate > ?' => (time() - (60 * 60 * 24 * 1)), 'time_duedate < ?' => (time() + (60 * 60 * 24 * 370))];
+        $select = Pi::model('invoice', 'order')->select()->where($where);
+        $rowset = Pi::model('invoice', 'order')->selectWith($select);
+        foreach ($rowset as $row) {
+            if ($row->time_duedate >= $month1 && $row->time_duedate < $month2) {
+                $list['next']['count'][$key1]++;
+                $list['next']['sum'][$key1] = $list['next']['sum'][$key1] + $row->total_price;
+            } elseif ($row->time_duedate >= $month2 && $row->time_duedate < $month3) {
+                $list['next']['count'][$key2]++;
+                $list['next']['sum'][$key2] = $list['next']['sum'][$key2] + $row->total_price;
+            } elseif ($row->time_duedate >= $month3 && $row->time_duedate < $month4) {
+                $list['next']['count'][$key3]++;
+                $list['next']['sum'][$key3] = $list['next']['sum'][$key3] + $row->total_price;
+            } elseif ($row->time_duedate >= $month4 && $row->time_duedate < $month5) {
+                $list['next']['count'][$key4]++;
+                $list['next']['sum'][$key4] = $list['next']['sum'][$key4] + $row->total_price;
+            } elseif ($row->time_duedate >= $month5 && $row->time_duedate < $month6) {
+                $list['next']['count'][$key5]++;
+                $list['next']['sum'][$key5] = $list['next']['sum'][$key5] + $row->total_price;
+            } elseif ($row->time_duedate >= $month6 && $row->time_duedate < $month7) {
+                $list['next']['count'][$key6]++;
+                $list['next']['sum'][$key6] = $list['next']['sum'][$key6] + $row->total_price;
+            } elseif ($row->time_duedate >= $month7 && $row->time_duedate < $month8) {
+                $list['next']['count'][$key7]++;
+                $list['next']['sum'][$key7] = $list['next']['sum'][$key7] + $row->total_price;
+            } elseif ($row->time_duedate >= $month8 && $row->time_duedate < $month9) {
+                $list['next']['count'][$key8]++;
+                $list['next']['sum'][$key8] = $list['next']['sum'][$key8] + $row->total_price;
+            } elseif ($row->time_duedate >= $month9 && $row->time_duedate < $month10) {
+                $list['next']['count'][$key9]++;
+                $list['next']['sum'][$key9] = $list['next']['sum'][$key9] + $row->total_price;
+            } elseif ($row->time_duedate >= $month10 && $row->time_duedate < $month11) {
+                $list['next']['count'][$key10]++;
+                $list['next']['sum'][$key10] = $list['next']['sum'][$key10] + $row->total_price;
+            } elseif ($row->time_duedate >= $month11 && $row->time_duedate < $month12) {
+                $list['next']['count'][$key11]++;
+                $list['next']['sum'][$key11] = $list['next']['sum'][$key11] + $row->total_price;
+            } elseif ($row->time_duedate >= $month12 && $row->time_duedate < $month13) {
+                $list['next']['count'][$key12]++;
+                $list['next']['sum'][$key12] = $list['next']['sum'][$key12] + $row->total_price;
+            }
+        }
+
         // Set view
         $this->view()->setTemplate('analytic-summary');
         $this->view()->assign('list', $list);
@@ -290,6 +400,87 @@ class IndexController extends ActionController
             $chart['paid']   = json_encode($chart['paid']);
             $chart['time']   = json_encode($chart['time']);
 
+            // require persian date class
+            require_once Pi::path('module') . '/order/src/Api/pdate.php';
+
+            // Set array
+            $key1         = sprintf('%s/%s', pdate('m', strtotime('this month')), pdate('Y', strtotime('this month')));
+            $key2         = sprintf('%s/%s', pdate('m', strtotime('+1 month')), pdate('Y', strtotime('+1 month')));
+            $key3         = sprintf('%s/%s', pdate('m', strtotime('+2 month')), pdate('Y', strtotime('+2 month')));
+            $key4         = sprintf('%s/%s', pdate('m', strtotime('+3 month')), pdate('Y', strtotime('+3 month')));
+            $key5         = sprintf('%s/%s', pdate('m', strtotime('+4 month')), pdate('Y', strtotime('+4 month')));
+            $key6         = sprintf('%s/%s', pdate('m', strtotime('+5 month')), pdate('Y', strtotime('+5 month')));
+            $key7         = sprintf('%s/%s', pdate('m', strtotime('+6 month')), pdate('Y', strtotime('+6 month')));
+            $key8         = sprintf('%s/%s', pdate('m', strtotime('+7 month')), pdate('Y', strtotime('+7 month')));
+            $key9         = sprintf('%s/%s', pdate('m', strtotime('+8 month')), pdate('Y', strtotime('+8 month')));
+            $key10        = sprintf('%s/%s', pdate('m', strtotime('+9 month')), pdate('Y', strtotime('+9 month')));
+            $key11        = sprintf('%s/%s', pdate('m', strtotime('+10 month')), pdate('Y', strtotime('+10 month')));
+            $key12        = sprintf('%s/%s', pdate('m', strtotime('+11 month')), pdate('Y', strtotime('+11 month')));
+            $month1       = pmktime(0, 0, 0, pdate('m', strtotime('this month')), 1, pdate('Y', strtotime('this month')));
+            $month2       = pmktime(0, 0, 0, pdate('m', strtotime('+1 month')), 1, pdate('Y', strtotime('+1 month')));
+            $month3       = pmktime(0, 0, 0, pdate('m', strtotime('+2 month')), 1, pdate('Y', strtotime('+2 month')));
+            $month4       = pmktime(0, 0, 0, pdate('m', strtotime('+3 month')), 1, pdate('Y', strtotime('+3 month')));
+            $month5       = pmktime(0, 0, 0, pdate('m', strtotime('+4 month')), 1, pdate('Y', strtotime('+4 month')));
+            $month6       = pmktime(0, 0, 0, pdate('m', strtotime('+5 month')), 1, pdate('Y', strtotime('+5 month')));
+            $month7       = pmktime(0, 0, 0, pdate('m', strtotime('+6 month')), 1, pdate('Y', strtotime('+6 month')));
+            $month8       = pmktime(0, 0, 0, pdate('m', strtotime('+7 month')), 1, pdate('Y', strtotime('+7 month')));
+            $month9       = pmktime(0, 0, 0, pdate('m', strtotime('+8 month')), 1, pdate('Y', strtotime('+8 month')));
+            $month10      = pmktime(0, 0, 0, pdate('m', strtotime('+9 month')), 1, pdate('Y', strtotime('+9 month')));
+            $month11      = pmktime(0, 0, 0, pdate('m', strtotime('+10 month')), 1, pdate('Y', strtotime('+10 month')));
+            $month12      = pmktime(0, 0, 0, pdate('m', strtotime('+11 month')), 1, pdate('Y', strtotime('+11 month')));
+            $month13      = pmktime(0, 0, 0, pdate('m', strtotime('+12 month')), 1, pdate('Y', strtotime('+12 month')));
+            $chart['next'] = [
+                'count' => [
+                    $key1 => 0, $key2 => 0, $key3 => 0, $key4 => 0, $key5 => 0, $key6 => 0, $key7 => 0,
+                    $key8 => 0, $key9 => 0, $key10 => 0, $key11 => 0, $key12 => 0,
+                ],
+                'sum'   => [
+                    $key1 => 0, $key2 => 0, $key3 => 0, $key4 => 0, $key5 => 0, $key6 => 0, $key7 => 0,
+                    $key8 => 0, $key9 => 0, $key10 => 0, $key11 => 0, $key12 => 0,
+                ],
+            ];
+
+            // Select next days
+            foreach ($invoices as $invoice) {
+                if ($invoice['time_duedate'] >= $month1 && $invoice['time_duedate'] < $month2) {
+                    $chart['next']['count'][$key1]++;
+                    $chart['next']['sum'][$key1] = $chart['next']['sum'][$key1] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month2 && $invoice['time_duedate'] < $month3) {
+                    $chart['next']['count'][$key2]++;
+                    $chart['next']['sum'][$key2] = $chart['next']['sum'][$key2] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month3 && $invoice['time_duedate'] < $month4) {
+                    $chart['next']['count'][$key3]++;
+                    $chart['next']['sum'][$key3] = $chart['next']['sum'][$key3] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month4 && $invoice['time_duedate'] < $month5) {
+                    $chart['next']['count'][$key4]++;
+                    $chart['next']['sum'][$key4] = $chart['next']['sum'][$key4] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month5 && $invoice['time_duedate'] < $month6) {
+                    $chart['next']['count'][$key5]++;
+                    $chart['next']['sum'][$key5] = $chart['next']['sum'][$key5] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month6 && $invoice['time_duedate'] < $month7) {
+                    $chart['next']['count'][$key6]++;
+                    $chart['next']['sum'][$key6] = $chart['next']['sum'][$key6] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month7 && $invoice['time_duedate'] < $month8) {
+                    $chart['next']['count'][$key7]++;
+                    $chart['next']['sum'][$key7] = $chart['next']['sum'][$key7] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month8 && $invoice['time_duedate'] < $month9) {
+                    $chart['next']['count'][$key8]++;
+                    $chart['next']['sum'][$key8] = $chart['next']['sum'][$key8] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month9 && $invoice['time_duedate'] < $month10) {
+                    $chart['next']['count'][$key9]++;
+                    $chart['next']['sum'][$key9] = $chart['next']['sum'][$key9] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month10 && $invoice['time_duedate'] < $month11) {
+                    $chart['next']['count'][$key10]++;
+                    $chart['next']['sum'][$key10] = $chart['next']['sum'][$key10] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month11 && $invoice['time_duedate'] < $month12) {
+                    $chart['next']['count'][$key11]++;
+                    $chart['next']['sum'][$key11] = $chart['next']['sum'][$key11] + $invoice['total_price'];
+                } elseif ($invoice['time_duedate'] >= $month12 && $invoice['time_duedate'] < $month13) {
+                    $chart['next']['count'][$key12]++;
+                    $chart['next']['sum'][$key12] = $chart['next']['sum'][$key12] + $invoice['total_price'];
+                }
+            }
+
             // Set view
             $this->view()->assign('company', $company);
             $this->view()->assign('userInformation', $userInformation);
@@ -409,12 +600,12 @@ class IndexController extends ActionController
 
             // Get order details
             $orderList = [];
-            $orderIds = [];
+            $orderIds  = [];
             $where     = ['status_order' => [1, 2, 3, 7], 'uid' => $uid];
             $select    = Pi::model('order', 'order')->select()->where($where);
             $rowset    = Pi::model('order', 'order')->selectWith($select);
             foreach ($rowset as $row) {
-                $orderIds[$row->id] = $row->id;
+                $orderIds[$row->id]              = $row->id;
                 $orderList[$row->id]             = Pi::api('order', 'order')->canonizeOrder($row, $user);
                 $orderList[$row->id]['products'] = Pi::api('order', 'order')->listProduct($row->id, $row->module_name);
             }

@@ -1,0 +1,299 @@
+<?php
+$this->jQuery();
+$this->css($this->assetModule('css/front.css'));
+$this->js($this->assetModule('js/Chart.min.js'));
+?>
+<div id="js-order" class="clearfix">
+    <div class="page-header">
+        <h1><?php echo sprintf(__('%s company dashboard'), implode(' ,', $title)); ?></h1>
+    </div>
+    <div class="clearfix row">
+        <?php if (count($orderList) > 0) { ?>
+            <div class="col-md-6">
+                <div class="alert alert-info" role="alert">
+                    <?php echo sprintf(
+                        __('%s order and %s price.'),
+                        _number(count($orderList)),
+                        Pi::api('api', 'order')->viewPrice($orderTotal)
+                    ); ?>
+                </div>
+            </div>
+        <?php } ?>
+        <?php if (count($invoicePaidList) > 0) { ?>
+            <div class="col-md-6">
+                <div class="alert alert-success" role="alert">
+                    <?php echo sprintf(
+                        __('%s paid invoice and %s price.'),
+                        _number(count($invoicePaidList)),
+                        Pi::api('api', 'order')->viewPrice($invoicePaidTotal)
+                    ); ?>
+                </div>
+            </div>
+        <?php } ?>
+        <?php if (count($invoiceUnPaidList) > 0) { ?>
+            <div class="col-md-6">
+                <div class="alert alert-warning" role="alert">
+                    <?php echo sprintf(
+                        __('%s unpaid invoice and %s price.'),
+                        _number(count($invoiceUnPaidList)),
+                        Pi::api('api', 'order')->viewPrice($invoiceUnPaidTotal)
+                    ); ?>
+                </div>
+            </div>
+        <?php } ?>
+        <?php if (count($invoiceNextList) > 0) { ?>
+            <div class="col-md-6">
+                <div class="alert alert-warning" role="alert">
+                    <?php echo sprintf(
+                        __('%s next paid invoice and %s price.'),
+                        _number(count($invoiceNextList)),
+                        Pi::api('api', 'order')->viewPrice($invoiceNextTotal)
+                    ); ?>
+                </div>
+            </div>
+        <?php } ?>
+        <?php if (count($invoiceDelayedList) > 0) { ?>
+            <div class="col-md-6">
+                <div class="alert alert-danger" role="alert">
+                    <?php echo sprintf(
+                        __('%s delayed invoice and %s price.'),
+                        _number(count($invoiceDelayedList)),
+                        Pi::api('api', 'order')->viewPrice($invoiceDelayedTotal)
+                    ); ?>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+    <br /><br />
+    <div class="clearfix row">
+        <div class="col-md-5">
+            <h3><?php _e('Payment chart'); ?></h3>
+            <div class="clearfix">
+                <canvas id="chart-price"></canvas>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <h3><?php _e('Chart report'); ?></h3>
+            <div class="clearfix">
+                <canvas id="chart-invoice"></canvas>
+            </div>
+        </div>
+    </div>
+    <br/><br/>
+    <div class="clearfix row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h2><?php _e('Next days information'); ?></h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-striped table-bordered table-condensed">
+                <tr>
+                    <th><?php _e('Date'); ?></th>
+                    <th><?php _e('Count'); ?></th>
+                    <th><?php _e('Sum'); ?></th>
+                </tr>
+                <?php foreach ($chart['next']['sum'] as $key => $value) { ?>
+                    <tr>
+                        <td><?php echo $this->escape($key); ?></td>
+                        <td><?php echo $this->escape(_number($chart['next']['count'][$key])); ?></td>
+                        <td><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($value)); ?></td>
+                    </tr>
+                <?php } ?>
+            </table>
+        </div>
+        <div class="col-md-8">
+            <div class="clearfix">
+                <canvas id="chart-sum-months"></canvas>
+            </div>
+        </div>
+    </div>
+    <br /><br />
+    <div class="page-header">
+        <h2><?php _e('User report'); ?></h2>
+    </div>
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th><?php _e('Name'); ?></th>
+            <th class="text-center"><?php _e('Total orders'); ?></th>
+            <th class="text-center"><?php _e('Total paid'); ?></th>
+            <th class="text-center"><?php _e('Total not paid'); ?></th>
+            <th class="text-center"><?php _e('Total delayed'); ?></th>
+            <th class="text-center"><?php _e('Current credit'); ?></th>
+            <th class="text-center"><?php _e('Last invoice time'); ?></th>
+            <th><?php _e('Action'); ?></th>
+        </tr>
+        <?php foreach ($userInformation as $user) { ?>
+            <?php $bgClass = '';
+            if (count($user['invoiceDelayedList']) > 0) {
+                $bgClass = 'danger';
+            } elseif (count($user['invoiceNextList']) > 0) {
+                $bgClass = 'warning';
+            } elseif (count($user['invoiceUnPaidList']) > 0) {
+                //$bgClass = 'info';
+            } elseif (count($user['invoiceUnPaidList']) == 0) {
+                $bgClass = 'success';
+            } ?>
+            <tr class="<?php echo $bgClass; ?>"
+                data-id="<?php echo $this->escape($user['id']); ?>">
+                <td>
+                    <ul class="list-inline">
+                        <li><?php echo $user['avatar']; ?></li>
+                        <li><?php echo $this->escape($user['first_name']); ?></li>
+                        <li><?php echo $this->escape($user['last_name']); ?></li>
+                    </ul>
+                </td>
+                <td class="text-center">
+                    <?php if (count($user['orderList']) > 0) { ?>
+                        <?php echo $this->escape(_number(count($user['orderList']))); ?>
+                        (<small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['orderTotal'])); ?></small>)
+                    <?php } ?>
+                </td>
+                <td class="text-center">
+                    <?php if (count($user['invoicePaidList']) > 0) { ?>
+                        <?php echo $this->escape(_number(count($user['invoicePaidList']))); ?>
+                        (<small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoicePaidTotal'])); ?></small>)
+                    <?php } ?>
+                </td>
+                <td class="text-center">
+                    <?php if (count($user['invoiceUnPaidList']) > 0) { ?>
+                        <?php echo $this->escape(_number(count($user['invoiceUnPaidList']))); ?>
+                        (<small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoiceUnPaidTotal'])); ?></small>)
+                    <?php } ?>
+                </td>
+                <td class="text-center">
+                    <?php if (count($user['invoiceDelayedList']) > 0) { ?>
+                        <?php echo $this->escape(_number(count($user['invoiceDelayedList']))); ?>
+                        (<small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoiceDelayedTotal'])); ?></small>)
+                    <?php } ?>
+                </td>
+                <td class="text-center"><?php echo $this->escape($user['credit']['amount_view']); ?></td>
+                <td class="text-center"><?php echo $this->escape($user['lastInvoice']); ?></td>
+                <td>
+                    <a class="btn btn-primary btn-xs" href="<?php echo $this->escape($user['url_list_user']); ?>" target="_blank">
+                        <?php _e('View details'); ?>
+                    </a>
+                </td>
+            </tr>
+        <?php } ?>
+        <tr>
+            <th><?php _e('Total table'); ?></th>
+            <th class="text-center">
+                <?php echo $this->escape(_number(count($orderList))); ?>
+                (<small><?php echo Pi::api('api', 'order')->viewPrice($orderTotal); ?></small>)
+            </th>
+            <th class="text-center">
+                <?php echo $this->escape(_number(count($invoicePaidList))); ?>
+                (<small><?php echo Pi::api('api', 'order')->viewPrice($invoicePaidTotal); ?></small>)
+            </th>
+            <th class="text-center">
+                <?php echo $this->escape(_number(count($invoiceUnPaidList))); ?>
+                (<small><?php echo Pi::api('api', 'order')->viewPrice($invoiceUnPaidTotal); ?></small>)
+            </th>
+            <th class="text-center">
+                <?php echo $this->escape(_number(count($invoiceDelayedList))); ?>
+                (<small><?php echo Pi::api('api', 'order')->viewPrice($invoiceDelayedTotal); ?></small>)
+            </th>
+            <th class="text-center"></th>
+            <th class="text-center"><?php echo $this->escape($lastInvoice); ?></th>
+            <th></th>
+        </tr>
+    </table>
+    <p>
+        <span class="label label-success"><?php _e('Info finish'); ?></span>
+        <!-- <span class="label label-info"><?php _e('Info unpaid'); ?></span> -->
+        <span class="label label-warning"><?php _e('Info next'); ?></span>
+        <span class="label label-danger"><?php _e('Info delayed'); ?></span>
+    </p>
+</div>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            var ctx = document.getElementById('chart-price').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    datasets: [{
+                        data: [
+                            <?php echo $invoicePaidTotal; ?>,
+                            <?php echo $invoiceUnPaidDelayedTotal; ?>,
+                            <?php echo $invoiceDelayedTotal; ?>,
+                        ],
+                        backgroundColor: [
+                            'rgb(75, 192, 192)', // green
+                            'rgb(255, 159, 64)', // orange
+                            'rgb(255, 99, 132)', // red
+                        ]
+                    }],
+                    labels: [
+                        "<?php _e('Paid') ?>",
+                        "<?php _e('UnPaid') ?>",
+                        "<?php _e('Delayed') ?>",
+                    ]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        });
+        // Week report
+        $(document).ready(function () {
+            var ctx = document.getElementById('chart-invoice').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: <?php echo $chart['label']; ?>,
+                    datasets: [{
+                        label: "<?php _e('Paid invoice'); ?>",
+                        fill: false,
+                        backgroundColor: 'rgb(75, 192, 192)', // green
+                        borderColor: 'rgb(75, 192, 192)',     // green
+                        data: <?php echo $chart['paid']; ?>,
+                        //showLine: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 10,
+                    },{
+                        label: "<?php _e('DuDate invoice'); ?>",
+                        fill: false,
+                        backgroundColor: 'rgb(255, 99, 132)', // red
+                        borderColor: 'rgb(255, 99, 132)',     // red
+                        data: <?php echo $chart['time']; ?>,
+                        //showLine: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 10,
+                    },{
+                        label: "<?php _e('Create invoice'); ?>",
+                        fill: false,
+                        backgroundColor: 'rgb(54, 162, 235)', // blue
+                        borderColor: 'rgb(54, 162, 235)',     // blue
+                        data: <?php echo $chart['create']; ?>,
+                        //showLine: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 10,
+                    }]
+                },
+                options: {}
+            });
+        });
+        $(document).ready(function () {
+            var ctx = document.getElementById('chart-sum-months').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: <?php echo json_encode(array_keys($chart['next']['sum'])); ?>,
+                    datasets: [{
+                        label: "<?php _e('Sum of next months'); ?>",
+                        fill: false,
+                        backgroundColor: 'rgb(75, 192, 192)', // green
+                        borderColor: 'rgb(75, 192, 192)',     // green
+                        data: <?php echo json_encode(array_values($chart['next']['sum'])); ?>,
+                        //showLine: false,
+                        pointRadius: 5,
+                        pointHoverRadius: 10,
+                    }]
+                },
+                options: {}
+            });
+        });
+    })(jQuery)
+</script>
