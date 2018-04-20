@@ -10,13 +10,20 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
-return [
-    // Admin section
-    'admin' => [
-        [
-            'label'      => _a('Analytic'),
-            'controller' => 'index',
-            'permission' => 'analytic',
-        ],
-    ],
-];
+
+namespace Module\Analytic\Form;
+
+use Pi;
+use Zend\InputFilter\InputFilter;
+
+class UserFilter extends InputFilter
+{
+    public function __construct($option = [])
+    {
+        // Main image
+        $this->add([
+            'name'     => 'document_images',
+            'required' => true,
+        ]);
+    }
+}

@@ -1,0 +1,65 @@
+<?php $this->css($this->assetModule('css/admin.css')); ?>
+<div class="clearfix">
+    <div class="page-header">
+        <h1>
+            <?php echo $user['avatar']; ?>
+            <?php echo $this->escape($title); ?>
+        </h1>
+    </div>
+    <table class="table table-striped table-bordered table-condensed">
+        <tr>
+            <th><?php _e('Title'); ?></th>
+            <th><?php _e('Value'); ?></th>
+        </tr>
+        <tr>
+            <td><?php _e('Company / Roles'); ?></td>
+            <td>
+                <?php $i = 1; ?>
+                <?php foreach ($user['roleList'] as $role) { ?>
+                    <?php if ($i > 1) { ?> | <?php } ?>
+                    <?php echo $this->escape($role['title']); ?>
+                    <?php $i++; ?>
+                <?php } ?>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Email'); ?></td>
+            <td>
+                <?php echo $this->escape($user['email']); ?>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Mobile'); ?></td>
+            <td>
+                <?php echo $this->escape($user['mobile']); ?>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Phone'); ?></td>
+            <td>
+                <?php echo $this->escape($user['phone']); ?>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Address'); ?></td>
+            <td>
+                <?php echo $this->escape($user['address1']); ?>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Company'); ?></td>
+            <td>
+                <?php echo $this->escape($user['company']); ?>
+            </td>
+        </tr>
+        <tr>
+            <td><?php _e('Company description'); ?></td>
+            <td>
+                <?php echo $this->escape($user['company_description']); ?>
+            </td>
+        </tr>
+    </table>
+
+
+    <?php echo $this->form($form); ?>
+</div>

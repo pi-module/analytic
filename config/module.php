@@ -1,10 +1,10 @@
 <?php
 /**
- * Pi Engine (http://pialog.org)
+ * Pi Engine (http://piengine.org)
  *
- * @link            http://code.pialog.org for the Pi Engine source repository
- * @copyright       Copyright (c) Pi Engine http://pialog.org
- * @license         http://pialog.org/license.txt New BSD License
+ * @link            http://code.piengine.org for the Pi Engine source repository
+ * @copyright       Copyright (c) Pi Engine http://piengine.org
+ * @license         http://piengine.org/license.txt New BSD License
  */
 
 /**
@@ -15,7 +15,7 @@ return [
     'meta'     => [
         'title'       => _a('Analytic'),
         'description' => _a('Analytic for order module'),
-        'version'     => '0.0.3',
+        'version'     => '0.0.5',
         'license'     => 'New BSD',
         'logo'        => 'image/logo.png',
         'readme'      => 'docs/readme.txt',
@@ -26,11 +26,12 @@ return [
     'author'   => [
         'Name'    => 'Hossein Azizabadi',
         'email'   => 'azizabadi@faragostaresh.com',
-        'website' => 'http://pialog.org',
+        'website' => 'http://piengine.org',
         'credits' => 'Pi Engine Team',
     ],
     // Resource
     'resource' => [
+        'database'   => 'database.php',
         'config'     => 'config.php',
         'permission' => 'permission.php',
         'page'       => 'page.php',

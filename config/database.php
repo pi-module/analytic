@@ -8,15 +8,10 @@
  */
 
 /**
+ * Module meta
+ *
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
 return [
-    // Admin section
-    'admin' => [
-        [
-            'label'      => _a('Analytic'),
-            'controller' => 'index',
-            'permission' => 'analytic',
-        ],
-    ],
+    'sqlfile' => 'sql/mysql.sql',
 ];

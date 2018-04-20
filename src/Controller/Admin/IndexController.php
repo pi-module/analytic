@@ -1,10 +1,10 @@
 <?php
 /**
- * Pi Engine (http://pialog.org)
+ * Pi Engine (http://piengine.org)
  *
- * @link            http://code.pialog.org for the Pi Engine source repository
- * @copyright       Copyright (c) Pi Engine http://pialog.org
- * @license         http://pialog.org/license.txt New BSD License
+ * @link            http://code.piengine.org for the Pi Engine source repository
+ * @copyright       Copyright (c) Pi Engine http://piengine.org
+ * @license         http://piengine.org/license.txt New BSD License
  */
 
 /**
@@ -13,6 +13,8 @@
 
 namespace Module\Analytic\Controller\Admin;
 
+use Module\Analytic\Form\UserFilter;
+use Module\Analytic\Form\UserForm;
 use Pi;
 use Pi\Mvc\Controller\ActionController;
 use Zend\Db\Sql\Predicate\Expression;
@@ -404,31 +406,31 @@ class IndexController extends ActionController
             require_once Pi::path('module') . '/order/src/Api/pdate.php';
 
             // Set array
-            $key1         = sprintf('%s/%s', pdate('m', strtotime('this month')), pdate('Y', strtotime('this month')));
-            $key2         = sprintf('%s/%s', pdate('m', strtotime('+1 month')), pdate('Y', strtotime('+1 month')));
-            $key3         = sprintf('%s/%s', pdate('m', strtotime('+2 month')), pdate('Y', strtotime('+2 month')));
-            $key4         = sprintf('%s/%s', pdate('m', strtotime('+3 month')), pdate('Y', strtotime('+3 month')));
-            $key5         = sprintf('%s/%s', pdate('m', strtotime('+4 month')), pdate('Y', strtotime('+4 month')));
-            $key6         = sprintf('%s/%s', pdate('m', strtotime('+5 month')), pdate('Y', strtotime('+5 month')));
-            $key7         = sprintf('%s/%s', pdate('m', strtotime('+6 month')), pdate('Y', strtotime('+6 month')));
-            $key8         = sprintf('%s/%s', pdate('m', strtotime('+7 month')), pdate('Y', strtotime('+7 month')));
-            $key9         = sprintf('%s/%s', pdate('m', strtotime('+8 month')), pdate('Y', strtotime('+8 month')));
-            $key10        = sprintf('%s/%s', pdate('m', strtotime('+9 month')), pdate('Y', strtotime('+9 month')));
-            $key11        = sprintf('%s/%s', pdate('m', strtotime('+10 month')), pdate('Y', strtotime('+10 month')));
-            $key12        = sprintf('%s/%s', pdate('m', strtotime('+11 month')), pdate('Y', strtotime('+11 month')));
-            $month1       = pmktime(0, 0, 0, pdate('m', strtotime('this month')), 1, pdate('Y', strtotime('this month')));
-            $month2       = pmktime(0, 0, 0, pdate('m', strtotime('+1 month')), 1, pdate('Y', strtotime('+1 month')));
-            $month3       = pmktime(0, 0, 0, pdate('m', strtotime('+2 month')), 1, pdate('Y', strtotime('+2 month')));
-            $month4       = pmktime(0, 0, 0, pdate('m', strtotime('+3 month')), 1, pdate('Y', strtotime('+3 month')));
-            $month5       = pmktime(0, 0, 0, pdate('m', strtotime('+4 month')), 1, pdate('Y', strtotime('+4 month')));
-            $month6       = pmktime(0, 0, 0, pdate('m', strtotime('+5 month')), 1, pdate('Y', strtotime('+5 month')));
-            $month7       = pmktime(0, 0, 0, pdate('m', strtotime('+6 month')), 1, pdate('Y', strtotime('+6 month')));
-            $month8       = pmktime(0, 0, 0, pdate('m', strtotime('+7 month')), 1, pdate('Y', strtotime('+7 month')));
-            $month9       = pmktime(0, 0, 0, pdate('m', strtotime('+8 month')), 1, pdate('Y', strtotime('+8 month')));
-            $month10      = pmktime(0, 0, 0, pdate('m', strtotime('+9 month')), 1, pdate('Y', strtotime('+9 month')));
-            $month11      = pmktime(0, 0, 0, pdate('m', strtotime('+10 month')), 1, pdate('Y', strtotime('+10 month')));
-            $month12      = pmktime(0, 0, 0, pdate('m', strtotime('+11 month')), 1, pdate('Y', strtotime('+11 month')));
-            $month13      = pmktime(0, 0, 0, pdate('m', strtotime('+12 month')), 1, pdate('Y', strtotime('+12 month')));
+            $key1          = sprintf('%s/%s', pdate('m', strtotime('this month')), pdate('Y', strtotime('this month')));
+            $key2          = sprintf('%s/%s', pdate('m', strtotime('+1 month')), pdate('Y', strtotime('+1 month')));
+            $key3          = sprintf('%s/%s', pdate('m', strtotime('+2 month')), pdate('Y', strtotime('+2 month')));
+            $key4          = sprintf('%s/%s', pdate('m', strtotime('+3 month')), pdate('Y', strtotime('+3 month')));
+            $key5          = sprintf('%s/%s', pdate('m', strtotime('+4 month')), pdate('Y', strtotime('+4 month')));
+            $key6          = sprintf('%s/%s', pdate('m', strtotime('+5 month')), pdate('Y', strtotime('+5 month')));
+            $key7          = sprintf('%s/%s', pdate('m', strtotime('+6 month')), pdate('Y', strtotime('+6 month')));
+            $key8          = sprintf('%s/%s', pdate('m', strtotime('+7 month')), pdate('Y', strtotime('+7 month')));
+            $key9          = sprintf('%s/%s', pdate('m', strtotime('+8 month')), pdate('Y', strtotime('+8 month')));
+            $key10         = sprintf('%s/%s', pdate('m', strtotime('+9 month')), pdate('Y', strtotime('+9 month')));
+            $key11         = sprintf('%s/%s', pdate('m', strtotime('+10 month')), pdate('Y', strtotime('+10 month')));
+            $key12         = sprintf('%s/%s', pdate('m', strtotime('+11 month')), pdate('Y', strtotime('+11 month')));
+            $month1        = pmktime(0, 0, 0, pdate('m', strtotime('this month')), 1, pdate('Y', strtotime('this month')));
+            $month2        = pmktime(0, 0, 0, pdate('m', strtotime('+1 month')), 1, pdate('Y', strtotime('+1 month')));
+            $month3        = pmktime(0, 0, 0, pdate('m', strtotime('+2 month')), 1, pdate('Y', strtotime('+2 month')));
+            $month4        = pmktime(0, 0, 0, pdate('m', strtotime('+3 month')), 1, pdate('Y', strtotime('+3 month')));
+            $month5        = pmktime(0, 0, 0, pdate('m', strtotime('+4 month')), 1, pdate('Y', strtotime('+4 month')));
+            $month6        = pmktime(0, 0, 0, pdate('m', strtotime('+5 month')), 1, pdate('Y', strtotime('+5 month')));
+            $month7        = pmktime(0, 0, 0, pdate('m', strtotime('+6 month')), 1, pdate('Y', strtotime('+6 month')));
+            $month8        = pmktime(0, 0, 0, pdate('m', strtotime('+7 month')), 1, pdate('Y', strtotime('+7 month')));
+            $month9        = pmktime(0, 0, 0, pdate('m', strtotime('+8 month')), 1, pdate('Y', strtotime('+8 month')));
+            $month10       = pmktime(0, 0, 0, pdate('m', strtotime('+9 month')), 1, pdate('Y', strtotime('+9 month')));
+            $month11       = pmktime(0, 0, 0, pdate('m', strtotime('+10 month')), 1, pdate('Y', strtotime('+10 month')));
+            $month12       = pmktime(0, 0, 0, pdate('m', strtotime('+11 month')), 1, pdate('Y', strtotime('+11 month')));
+            $month13       = pmktime(0, 0, 0, pdate('m', strtotime('+12 month')), 1, pdate('Y', strtotime('+12 month')));
             $chart['next'] = [
                 'count' => [
                     $key1 => 0, $key2 => 0, $key3 => 0, $key4 => 0, $key5 => 0, $key6 => 0, $key7 => 0,
@@ -591,9 +593,18 @@ class IndexController extends ActionController
             }
 
             // Get user
-            $user = Pi::service('user')->get($uid,
-                ['uid', 'name', 'active', 'first_name', 'last_name', 'email']
-            );
+            $user = Pi::service('user')->get($uid, [
+                'uid', 'name', 'active', 'first_name', 'last_name', 'email',
+                'mobile', 'phone', 'address1', 'company', 'company_description',
+            ]);
+
+            // Get user role
+            $user['roleSystem'] = Pi::registry('role')->read('front');
+            $user['roleUser']   = Pi::user()->getRole($uid, 'front');
+            $user['roleList']   = [];
+            foreach ($user['roleUser'] as $role) {
+                $user['roleList'][$role] = $user['roleSystem'][$role];
+            }
 
             // Get credit list
             $credit = Pi::api('credit', 'order')->getCredit($uid);
@@ -622,6 +633,15 @@ class IndexController extends ActionController
 
             // Set user
             $user['url']                       = Pi::url(Pi::service('user')->getUrl('profile', $user['id']));
+            $user['edit']                      = Pi::url($this->url('', [
+                'module'     => 'user',
+                'controller' => 'edit',
+                'uid'        => $user['id'],
+            ]));
+            $user['attach']                    = Pi::url($this->url('', [
+                'action' => 'userUpdate',
+                'uid'    => $user['id'],
+            ]));
             $user['avatar']                    = Pi::user()->avatar($user['id'], 'medium', [
                 'alt'   => '',
                 'class' => 'img-circle',
@@ -636,6 +656,7 @@ class IndexController extends ActionController
             $user['invoiceUnPaidTotal']        = 0;
             $user['invoiceDelayedList']        = [];
             $user['invoiceDelayedTotal']       = 0;
+            $user['invoiceNextTotal']          = 0;
             $user['invoiceNextPaidList']       = [];
             $user['invoiceNextPaidTotal']      = 0;
             $user['invoiceUnPaidDelayedTotal'] = 0;
@@ -726,12 +747,21 @@ class IndexController extends ActionController
             $chart['time']   = json_encode($chart['time']);
 
 
+            // find or create user
+            $analyticUser = Pi::model('user', 'analytic')->find($user['id'], 'id');
+            if ($analyticUser) {
+                $analyticUser = $analyticUser->toArray();
+            } else {
+                $analyticUser = [];
+            }
+
             // Set view
             $this->view()->assign('list', $list);
             $this->view()->assign('user', $user);
             $this->view()->assign('chart', $chart);
             $this->view()->assign('orderList', $orderList);
             $this->view()->assign('installment', $installment);
+            $this->view()->assign('analyticUser', $analyticUser);
         } else {
             $uidList = [];
             $columns = ['uid'];
@@ -768,5 +798,82 @@ class IndexController extends ActionController
         $this->view()->setTemplate('analytic-user');
         $this->view()->assign('config', $config);
         $this->view()->assign('uid', $uid);
+    }
+
+    public function userUpdateAction()
+    {
+        // Get read
+        $uid = $this->params('uid');
+        if (!$uid) {
+            // Jump
+            $message = __('Please select user.');
+            $this->jump(['action' => 'user'], $message, 'error');
+        }
+
+        // find or create user
+        $analyticUser = Pi::model('user', 'analytic')->find($uid, 'id');
+        if (!$analyticUser) {
+            $analyticUser     = Pi::model('user', 'analytic')->createRow();
+            $analyticUser->id = $uid;
+            $analyticUser->save();
+        }
+
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+
+        // Get user
+        $user           = Pi::service('user')->get($uid, [
+            'uid', 'name', 'active', 'first_name', 'last_name', 'email',
+            'mobile', 'phone', 'address1', 'company', 'company_description',
+        ]);
+        $user['edit']   = Pi::url($this->url('', [
+            'module'     => 'user',
+            'controller' => 'edit',
+            'uid'        => $user['id'],
+        ]));
+        $user['avatar'] = Pi::user()->avatar($user['id'], 'medium', [
+            'alt'   => '',
+            'class' => 'img-circle',
+        ]);
+
+        // Get user role
+        $user['roleSystem'] = Pi::registry('role')->read('front');
+        $user['roleUser']   = Pi::user()->getRole($uid, 'front');
+        $user['roleList']   = [];
+        foreach ($user['roleUser'] as $role) {
+            $user['roleList'][$role] = $user['roleSystem'][$role];
+        }
+
+        // Set option
+        $option = [];
+
+        // Set form
+        $form = new UserForm('user', $option);
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost();
+            $form->setInputFilter(new UserFilter($option));
+            $form->setData($data);
+            if ($form->isValid()) {
+                $values = $form->getData();
+
+                // Save
+                $analyticUser->assign($values);
+                $analyticUser->save();
+
+                // Jump
+                $message = __('User data data saved successfully.');
+                $this->jump(['action' => 'user', 'uid' => $uid], $message);
+            }
+        }
+
+        // Set title
+        $title = sprintf('%s %s set extra information', $user['first_name'], $user['last_name']);
+
+        // Set view
+        $this->view()->setTemplate('analytic-user-update');
+        $this->view()->assign('config', $config);
+        $this->view()->assign('user', $user);
+        $this->view()->assign('form', $form);
+        $this->view()->assign('title', $title);
     }
 }
