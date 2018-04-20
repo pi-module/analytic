@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2018-01-21 18:16+0330\n"
+"POT-Creation-Date: 2018-04-20 15:07+0430\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: _a;_t\n"
 "X-Poedit-Basepath: ../..\n"
@@ -23,13 +23,79 @@ msgstr "مدیریت"
 msgid "Panel"
 msgstr "پنل"
 
-#: config/config.php:29
+#: config/config.php:25
+msgid "Image"
+msgstr "تصاویر"
+
+#: config/config.php:33
 msgid "Perpage"
 msgstr "تعداد در هر صفحه"
 
-#: config/config.php:38
+#: config/config.php:42
 msgid "Panel admin"
 msgstr "مدیریت پنل"
+
+#: config/config.php:51
+msgid "Min Image width (upload)"
+msgstr ""
+
+#: config/config.php:52 config/config.php:60
+msgid "This config can override media module value"
+msgstr ""
+
+#: config/config.php:59
+msgid "Min Image height (upload)"
+msgstr ""
+
+#: config/config.php:67
+msgid "Image quality"
+msgstr ""
+
+#: config/config.php:68
+msgid ""
+"Between 0 to 100 and support both of JPG and PNG, default is 75. This config "
+"can override media module value"
+msgstr ""
+
+#: config/config.php:76
+msgid "Image Size"
+msgstr ""
+
+#: config/config.php:84
+msgid "Image Extension"
+msgstr ""
+
+#: config/config.php:92
+msgid "Large Image width"
+msgstr ""
+
+#: config/config.php:100
+msgid "Large Image height"
+msgstr ""
+
+#: config/config.php:108
+msgid "Item Image width"
+msgstr ""
+
+#: config/config.php:116
+msgid "Item Image height"
+msgstr ""
+
+#: config/config.php:124
+msgid "Medium Image width"
+msgstr ""
+
+#: config/config.php:132
+msgid "Medium Image height"
+msgstr ""
+
+#: config/config.php:140
+msgid "Thumb Image width"
+msgstr ""
+
+#: config/config.php:148
+msgid "Thumb Image height"
+msgstr ""
 
 #: config/module.php:16 config/page.php:17 config/permission.php:17
 msgid "Analytic"
