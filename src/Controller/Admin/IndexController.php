@@ -755,6 +755,9 @@ class IndexController extends ActionController
                 $analyticUser = [];
             }
 
+            // Get score
+            $user['score'] = Pi::api('invoice', 'order')->getInvoiceScore($user['uid']);
+
             // Set view
             $this->view()->assign('list', $list);
             $this->view()->assign('user', $user);

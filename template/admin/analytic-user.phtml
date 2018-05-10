@@ -102,7 +102,7 @@ EOT;
             </tr>
         </table>
         <div class="clearfix row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="alert alert-info" role="alert">
                     <?php
                     $price = sprintf(
@@ -122,7 +122,7 @@ EOT;
                     ); ?>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="alert alert-success" role="alert">
                     <?php echo sprintf(
                         __('%s paid invoice and %s price.'),
@@ -131,7 +131,7 @@ EOT;
                     ); ?>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="alert alert-warning" role="alert">
                     <?php echo sprintf(
                         __('%s unpaid invoice and %s price.'),
@@ -140,7 +140,7 @@ EOT;
                     ); ?>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="alert alert-danger" role="alert">
                     <?php echo sprintf(
                         __('%s delayed invoice and %s price.'),
@@ -148,6 +148,27 @@ EOT;
                         Pi::api('api', 'order')->viewPrice($list['delayed']['sum'])
                     ); ?>
                 </div>
+            </div>
+            <div class="col-md-12">
+                <?php if ($user['score']['type'] == 'positive') { ?>
+                    <div class="alert alert-success" role="alert">
+                        <?php echo sprintf(
+                            __('This user score is  %s positive !'),
+                            $user['score']['amount_view']
+                        ); ?>
+                    </div>
+                <?php } elseif ($user['score']['type'] == 'positive') { ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo sprintf(
+                            __('This user score is  %s negative !'),
+                            $user['score']['amount_view']
+                        ); ?>
+                    </div>
+                <?php } else { ?>
+                    <div class="alert alert-success" role="alert">
+                        <?php _e('This user score is  normal !'); ?>
+                    </div>
+                <?php } ?>
             </div>
         </div>
         <hr/>
