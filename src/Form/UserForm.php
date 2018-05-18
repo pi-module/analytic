@@ -40,6 +40,7 @@ class UserForm extends BaseForm
             'options' => [
                 'label'                    => __('Document images'),
                 'required' => true,
+                'media_gallery' => true,
             ],
         ]);
         // Save
