@@ -644,7 +644,7 @@ class IndexController extends ActionController
             ]));
             $user['avatar']                    = Pi::user()->avatar($user['id'], 'medium', [
                 'alt'   => '',
-                'class' => 'img-circle',
+                'class' => 'rounded-circle',
             ]);
             $user['credit']                    = $credit;
             $user['invoice']                   = [];
@@ -836,7 +836,7 @@ class IndexController extends ActionController
         ]));
         $user['avatar'] = Pi::user()->avatar($user['id'], 'medium', [
             'alt'   => '',
-            'class' => 'img-circle',
+            'class' => 'rounded-circle',
         ]);
 
         // Get user role

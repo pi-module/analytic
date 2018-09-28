@@ -89,7 +89,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
                 </div>
             </div>
             <div class="col-md-4">
-                <table class="table table-striped table-bordered table-condensed">
+                <table class="table table-striped table-bordered table-sm">
                     <tr>
                         <th><?php _e('Date'); ?></th>
                         <th><?php _e('Count'); ?></th>
@@ -114,7 +114,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
         <div class="page-header">
             <h2><?php _e('User report'); ?></h2>
         </div>
-        <table class="table table-striped table-bordered table-condensed">
+        <table class="table table-striped table-bordered table-sm">
             <tr>
                 <th><?php _e('Name'); ?></th>
                 <th class="text-center"><?php _e('Total orders'); ?></th>
@@ -141,9 +141,9 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     data-listUser="<?php echo $this->escape($user['url_list_user']); ?>">
                     <td>
                         <ul class="list-inline">
-                            <li><?php echo $user['avatar']; ?></li>
-                            <li><?php echo $this->escape($user['first_name']); ?></li>
-                            <li><?php echo $this->escape($user['last_name']); ?></li>
+                            <li class="list-inline-item"><?php echo $user['avatar']; ?></li>
+                            <li class="list-inline-item"><?php echo $this->escape($user['first_name']); ?></li>
+                            <li class="list-inline-item"><?php echo $this->escape($user['last_name']); ?></li>
                         </ul>
                     </td>
                     <td class="text-center">
@@ -177,13 +177,13 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     <td class="text-center"><?php echo $this->escape($user['credit']['amount_view']); ?></td>
                     <td class="text-center"><?php echo $this->escape($user['lastInvoice']); ?></td>
                     <td>
-                        <a class="btn btn-link btn-xs" target="_blank" href="<?php echo Pi::url($this->url('', [
+                        <a class="btn btn-link btn-sm" target="_blank" href="<?php echo Pi::url($this->url('', [
                             'action' => 'user',
                             'uid'    => $user['id'],
                         ])); ?>" title="<?php _e('View analytic'); ?>">
                             <i class="fa fa-external-link" aria-hidden="true"></i>
                         </a>
-                        <button type="button" class="btn btn-link btn-xs show-list-user" title="<?php _e('Fast view'); ?>">
+                        <button type="button" class="btn btn-link btn-sm show-list-user" title="<?php _e('Fast view'); ?>">
                             <i class="fa fa-eye" aria-hidden="true"></i>
                         </button>
                     </td>
@@ -221,10 +221,10 @@ $this->js($this->assetModule('js/Chart.min.js'));
             </tr>
         </table>
         <p>
-            <span class="label label-success"><?php _e('Info finish'); ?></span>
-            <!-- <span class="label label-info"><?php _e('Info unpaid'); ?></span> -->
-            <span class="label label-warning"><?php _e('Info next'); ?></span>
-            <span class="label label-danger"><?php _e('Info delayed'); ?></span>
+            <span class="badge badge-success"><?php _e('Info finish'); ?></span>
+            <!-- <span class="badge badge-info"><?php _e('Info unpaid'); ?></span> -->
+            <span class="badge badge-warning"><?php _e('Info next'); ?></span>
+            <span class="badge badge-danger"><?php _e('Info delayed'); ?></span>
         </p>
     </div>
     <script>
@@ -346,7 +346,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
         <div class="page-header">
             <h1><?php _e('List of company'); ?></h1>
         </div>
-        <table class="table table-striped table-bordered table-condensed">
+        <table class="table table-striped table-bordered table-sm">
             <tr>
                 <th><?php _e('ID'); ?></th>
                 <th><?php _e('Company'); ?></th>
@@ -357,7 +357,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     <td><?php echo $this->escape($singleRole['id']); ?></td>
                     <td><?php echo $this->escape($singleRole['title']); ?></td>
                     <td>
-                        <a class="btn btn-primary btn-xs" title="<?php _e('View report'); ?>"
+                        <a class="btn btn-primary btn-sm" title="<?php _e('View report'); ?>"
                            href="<?php echo $this->url('', ['action' => 'company', 'role' => $key]); ?>"><i
                                     class="fa fa-eye"></i> <?php _e('View report'); ?></a>
                     </td>

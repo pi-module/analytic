@@ -483,7 +483,7 @@ class IndexController extends ActionController
         $user['url']                       = Pi::url(Pi::service('user')->getUrl('profile', $user['id']));
         $user['avatar']                    = Pi::user()->avatar($user['id'], 'medium', [
             'alt'   => '',
-            'class' => 'img-circle',
+            'class' => 'rounded-circle',
         ]);
         $user['credit']                    = $credit;
         $user['invoice']                   = [];
