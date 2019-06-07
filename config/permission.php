@@ -13,7 +13,7 @@
 return [
     // Admin section
     'admin' => [
-        'analytic'  => [
+        'analytic' => [
             'title'  => _a('Analytic'),
             'access' => [],
         ],

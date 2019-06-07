@@ -15,7 +15,7 @@ return [
     'meta'     => [
         'title'       => _a('Analytic'),
         'description' => _a('Analytic for order module'),
-        'version'     => '0.0.5',
+        'version'     => '0.0.6',
         'license'     => 'New BSD',
         'logo'        => 'image/logo.png',
         'readme'      => 'docs/readme.txt',

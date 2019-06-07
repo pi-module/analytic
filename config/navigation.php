@@ -15,7 +15,7 @@
 
 return [
     'admin' => [
-        'summary'    => [
+        'summary' => [
             'label'      => _a('Summary'),
             'route'      => 'admin',
             'controller' => 'index',
@@ -27,7 +27,7 @@ return [
             'controller' => 'index',
             'action'     => 'company',
         ],
-        'user' => [
+        'user'    => [
             'label'      => _a('User'),
             'route'      => 'admin',
             'controller' => 'index',

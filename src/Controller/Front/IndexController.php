@@ -71,7 +71,8 @@ class IndexController extends ActionController
         // Get user list
         $users           = [];
         $userInformation = [];
-        $userList        = Pi::service('user')->mget($uidList,
+        $userList        = Pi::service('user')->mget(
+            $uidList,
             ['uid', 'name', 'active', 'first_name', 'last_name', 'email']
         );
         foreach ($userList as $userSingle) {
@@ -126,11 +127,15 @@ class IndexController extends ActionController
             $user['invoiceNextPaidTotal']      = 0;
             $user['invoiceUnPaidDelayedTotal'] = 0;
             $user['lastInvoice']               = [];
-            $user['url_list_user']             = Pi::url($this->url('', [
-                'controller' => 'index',
-                'action'     => 'user',
-                'uid'        => $user['id'],
-            ]));
+            $user['url_list_user']             = Pi::url(
+                $this->url(
+                    '', [
+                    'controller' => 'index',
+                    'action'     => 'user',
+                    'uid'        => $user['id'],
+                ]
+                )
+            );
 
             foreach ($invoices as $invoice) {
                 if ($invoice['uid'] == $user['id']) {
@@ -230,31 +235,31 @@ class IndexController extends ActionController
         require_once Pi::path('module') . '/order/src/Api/pdate.php';
 
         // Set array
-        $key1         = sprintf('%s/%s', pdate('m', strtotime('this month')), pdate('Y', strtotime('this month')));
-        $key2         = sprintf('%s/%s', pdate('m', strtotime('+1 month')), pdate('Y', strtotime('+1 month')));
-        $key3         = sprintf('%s/%s', pdate('m', strtotime('+2 month')), pdate('Y', strtotime('+2 month')));
-        $key4         = sprintf('%s/%s', pdate('m', strtotime('+3 month')), pdate('Y', strtotime('+3 month')));
-        $key5         = sprintf('%s/%s', pdate('m', strtotime('+4 month')), pdate('Y', strtotime('+4 month')));
-        $key6         = sprintf('%s/%s', pdate('m', strtotime('+5 month')), pdate('Y', strtotime('+5 month')));
-        $key7         = sprintf('%s/%s', pdate('m', strtotime('+6 month')), pdate('Y', strtotime('+6 month')));
-        $key8         = sprintf('%s/%s', pdate('m', strtotime('+7 month')), pdate('Y', strtotime('+7 month')));
-        $key9         = sprintf('%s/%s', pdate('m', strtotime('+8 month')), pdate('Y', strtotime('+8 month')));
-        $key10        = sprintf('%s/%s', pdate('m', strtotime('+9 month')), pdate('Y', strtotime('+9 month')));
-        $key11        = sprintf('%s/%s', pdate('m', strtotime('+10 month')), pdate('Y', strtotime('+10 month')));
-        $key12        = sprintf('%s/%s', pdate('m', strtotime('+11 month')), pdate('Y', strtotime('+11 month')));
-        $month1       = pmktime(0, 0, 0, pdate('m', strtotime('this month')), 1, pdate('Y', strtotime('this month')));
-        $month2       = pmktime(0, 0, 0, pdate('m', strtotime('+1 month')), 1, pdate('Y', strtotime('+1 month')));
-        $month3       = pmktime(0, 0, 0, pdate('m', strtotime('+2 month')), 1, pdate('Y', strtotime('+2 month')));
-        $month4       = pmktime(0, 0, 0, pdate('m', strtotime('+3 month')), 1, pdate('Y', strtotime('+3 month')));
-        $month5       = pmktime(0, 0, 0, pdate('m', strtotime('+4 month')), 1, pdate('Y', strtotime('+4 month')));
-        $month6       = pmktime(0, 0, 0, pdate('m', strtotime('+5 month')), 1, pdate('Y', strtotime('+5 month')));
-        $month7       = pmktime(0, 0, 0, pdate('m', strtotime('+6 month')), 1, pdate('Y', strtotime('+6 month')));
-        $month8       = pmktime(0, 0, 0, pdate('m', strtotime('+7 month')), 1, pdate('Y', strtotime('+7 month')));
-        $month9       = pmktime(0, 0, 0, pdate('m', strtotime('+8 month')), 1, pdate('Y', strtotime('+8 month')));
-        $month10      = pmktime(0, 0, 0, pdate('m', strtotime('+9 month')), 1, pdate('Y', strtotime('+9 month')));
-        $month11      = pmktime(0, 0, 0, pdate('m', strtotime('+10 month')), 1, pdate('Y', strtotime('+10 month')));
-        $month12      = pmktime(0, 0, 0, pdate('m', strtotime('+11 month')), 1, pdate('Y', strtotime('+11 month')));
-        $month13      = pmktime(0, 0, 0, pdate('m', strtotime('+12 month')), 1, pdate('Y', strtotime('+12 month')));
+        $key1          = sprintf('%s/%s', pdate('m', strtotime('this month')), pdate('Y', strtotime('this month')));
+        $key2          = sprintf('%s/%s', pdate('m', strtotime('+1 month')), pdate('Y', strtotime('+1 month')));
+        $key3          = sprintf('%s/%s', pdate('m', strtotime('+2 month')), pdate('Y', strtotime('+2 month')));
+        $key4          = sprintf('%s/%s', pdate('m', strtotime('+3 month')), pdate('Y', strtotime('+3 month')));
+        $key5          = sprintf('%s/%s', pdate('m', strtotime('+4 month')), pdate('Y', strtotime('+4 month')));
+        $key6          = sprintf('%s/%s', pdate('m', strtotime('+5 month')), pdate('Y', strtotime('+5 month')));
+        $key7          = sprintf('%s/%s', pdate('m', strtotime('+6 month')), pdate('Y', strtotime('+6 month')));
+        $key8          = sprintf('%s/%s', pdate('m', strtotime('+7 month')), pdate('Y', strtotime('+7 month')));
+        $key9          = sprintf('%s/%s', pdate('m', strtotime('+8 month')), pdate('Y', strtotime('+8 month')));
+        $key10         = sprintf('%s/%s', pdate('m', strtotime('+9 month')), pdate('Y', strtotime('+9 month')));
+        $key11         = sprintf('%s/%s', pdate('m', strtotime('+10 month')), pdate('Y', strtotime('+10 month')));
+        $key12         = sprintf('%s/%s', pdate('m', strtotime('+11 month')), pdate('Y', strtotime('+11 month')));
+        $month1        = pmktime(0, 0, 0, pdate('m', strtotime('this month')), 1, pdate('Y', strtotime('this month')));
+        $month2        = pmktime(0, 0, 0, pdate('m', strtotime('+1 month')), 1, pdate('Y', strtotime('+1 month')));
+        $month3        = pmktime(0, 0, 0, pdate('m', strtotime('+2 month')), 1, pdate('Y', strtotime('+2 month')));
+        $month4        = pmktime(0, 0, 0, pdate('m', strtotime('+3 month')), 1, pdate('Y', strtotime('+3 month')));
+        $month5        = pmktime(0, 0, 0, pdate('m', strtotime('+4 month')), 1, pdate('Y', strtotime('+4 month')));
+        $month6        = pmktime(0, 0, 0, pdate('m', strtotime('+5 month')), 1, pdate('Y', strtotime('+5 month')));
+        $month7        = pmktime(0, 0, 0, pdate('m', strtotime('+6 month')), 1, pdate('Y', strtotime('+6 month')));
+        $month8        = pmktime(0, 0, 0, pdate('m', strtotime('+7 month')), 1, pdate('Y', strtotime('+7 month')));
+        $month9        = pmktime(0, 0, 0, pdate('m', strtotime('+8 month')), 1, pdate('Y', strtotime('+8 month')));
+        $month10       = pmktime(0, 0, 0, pdate('m', strtotime('+9 month')), 1, pdate('Y', strtotime('+9 month')));
+        $month11       = pmktime(0, 0, 0, pdate('m', strtotime('+10 month')), 1, pdate('Y', strtotime('+10 month')));
+        $month12       = pmktime(0, 0, 0, pdate('m', strtotime('+11 month')), 1, pdate('Y', strtotime('+11 month')));
+        $month13       = pmktime(0, 0, 0, pdate('m', strtotime('+12 month')), 1, pdate('Y', strtotime('+12 month')));
         $chart['next'] = [
             'count' => [
                 $key1 => 0, $key2 => 0, $key3 => 0, $key4 => 0, $key5 => 0, $key6 => 0, $key7 => 0,
@@ -377,7 +382,7 @@ class IndexController extends ActionController
 
             $viewer = 'company';
         } else {
-            $uid = Pi::user()->getId();
+            $uid    = Pi::user()->getId();
             $viewer = 'user';
         }
 
@@ -450,7 +455,8 @@ class IndexController extends ActionController
         }
 
         // Get user
-        $user = Pi::service('user')->get($uid,
+        $user = Pi::service('user')->get(
+            $uid,
             ['uid', 'name', 'active', 'first_name', 'last_name', 'email']
         );
 
@@ -481,10 +487,12 @@ class IndexController extends ActionController
 
         // Set user
         $user['url']                       = Pi::url(Pi::service('user')->getUrl('profile', $user['id']));
-        $user['avatar']                    = Pi::user()->avatar($user['id'], 'medium', [
+        $user['avatar']                    = Pi::user()->avatar(
+            $user['id'], 'medium', [
             'alt'   => '',
             'class' => 'rounded-circle',
-        ]);
+        ]
+        );
         $user['credit']                    = $credit;
         $user['invoice']                   = [];
         $user['orderList']                 = [];
@@ -499,12 +507,16 @@ class IndexController extends ActionController
         $user['invoiceNextPaidTotal']      = 0;
         $user['invoiceUnPaidDelayedTotal'] = 0;
         $user['lastInvoice']               = [];
-        $user['url_list_user']             = Pi::url($this->url('admin', [
-            'module'     => 'order',
-            'controller' => 'order',
-            'action'     => 'listUser',
-            'uid'        => $user['id'],
-        ]));
+        $user['url_list_user']             = Pi::url(
+            $this->url(
+                'admin', [
+                'module'     => 'order',
+                'controller' => 'order',
+                'action'     => 'listUser',
+                'uid'        => $user['id'],
+            ]
+            )
+        );
 
         foreach ($invoices as $invoice) {
             if ($invoice['uid'] == $user['id']) {

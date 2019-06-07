@@ -15,7 +15,7 @@ namespace Module\Analytic\Form;
 
 use Pi\Form\Form as BaseForm;
 
-class UserForm extends BaseForm
+class CommentForm extends BaseForm
 {
     public function __construct($name = null, $option = [])
     {
@@ -26,22 +26,25 @@ class UserForm extends BaseForm
     public function getInputFilter()
     {
         if (!$this->filter) {
-            $this->filter = new UserFilter($this->option);
+            $this->filter = new CommentFilter($this->option);
         }
         return $this->filter;
     }
 
     public function init()
     {
-        // Document images
+        // note
         $this->add(
             [
-                'name'    => 'document_images',
-                'type'    => 'Module\Media\Form\Element\Media',
-                'options' => [
-                    'label'         => __('Document images'),
-                    'required'      => true,
-                    'media_gallery' => true,
+                'name'       => 'note',
+                'options'    => [
+                    'label' => __('Note'),
+                ],
+                'attributes' => [
+                    'type'     => 'textarea',
+                    'rows'     => '3',
+                    'cols'     => '40',
+                    'required' => true,
                 ],
             ]
         );

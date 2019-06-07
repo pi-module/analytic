@@ -13,6 +13,8 @@
 
 namespace Module\Analytic\Controller\Admin;
 
+use Module\Analytic\Form\CommentFilter;
+use Module\Analytic\Form\CommentForm;
 use Module\Analytic\Form\UserFilter;
 use Module\Analytic\Form\UserForm;
 use Pi;
@@ -23,10 +25,12 @@ class IndexController extends ActionController
 {
     public function indexAction()
     {
-        return $this->redirect()->toRoute('', [
-            'controller' => 'index',
-            'action'     => 'summary',
-        ]);
+        return $this->redirect()->toRoute(
+            '', [
+                'controller' => 'index',
+                'action'     => 'summary',
+            ]
+        );
     }
 
     public function summaryAction()
@@ -104,7 +108,8 @@ class IndexController extends ActionController
             'sum'   => new Expression('sum(total_price)'),
             'count' => new Expression('count(*)'),
         ];
-        $where   = ['status' => [1, 2], 'time_payment' => 0, 'time_duedate > ?' => (time() - (60 * 60 * 24 * 1)), 'time_duedate < ?' => (time() + (60 * 60 * 24 * 11))];
+        $where   = ['status'           => [1, 2], 'time_payment' => 0, 'time_duedate > ?' => (time() - (60 * 60 * 24 * 1)),
+                    'time_duedate < ?' => (time() + (60 * 60 * 24 * 11))];
         $select  = Pi::model('invoice', 'order')->select()->columns($columns)->where($where);
         $rowset  = Pi::model('invoice', 'order')->selectWith($select);
         foreach ($rowset as $row) {
@@ -117,7 +122,8 @@ class IndexController extends ActionController
             'sum'   => new Expression('sum(total_price)'),
             'count' => new Expression('count(*)'),
         ];
-        $where   = ['status' => [1, 2], 'time_payment' => 0, 'time_duedate > ?' => (time() - (60 * 60 * 24 * 1)), 'time_duedate < ?' => (time() + (60 * 60 * 24 * 31))];
+        $where   = ['status'           => [1, 2], 'time_payment' => 0, 'time_duedate > ?' => (time() - (60 * 60 * 24 * 1)),
+                    'time_duedate < ?' => (time() + (60 * 60 * 24 * 31))];
         $select  = Pi::model('invoice', 'order')->select()->columns($columns)->where($where);
         $rowset  = Pi::model('invoice', 'order')->selectWith($select);
         foreach ($rowset as $row) {
@@ -166,7 +172,8 @@ class IndexController extends ActionController
         ];
 
         // Select next days
-        $where  = ['status' => [1, 2], 'time_payment' => 0, 'time_duedate > ?' => (time() - (60 * 60 * 24 * 1)), 'time_duedate < ?' => (time() + (60 * 60 * 24 * 370))];
+        $where  = ['status'           => [1, 2], 'time_payment' => 0, 'time_duedate > ?' => (time() - (60 * 60 * 24 * 1)),
+                   'time_duedate < ?' => (time() + (60 * 60 * 24 * 370))];
         $select = Pi::model('invoice', 'order')->select()->where($where);
         $rowset = Pi::model('invoice', 'order')->selectWith($select);
         foreach ($rowset as $row) {
@@ -247,7 +254,8 @@ class IndexController extends ActionController
             // Get user list
             $users           = [];
             $userInformation = [];
-            $userList        = Pi::service('user')->mget($uidList,
+            $userList        = Pi::service('user')->mget(
+                $uidList,
                 ['uid', 'name', 'active', 'first_name', 'last_name', 'email']
             );
             foreach ($userList as $userSingle) {
@@ -301,12 +309,16 @@ class IndexController extends ActionController
                 $user['invoiceNextPaidTotal']      = 0;
                 $user['invoiceUnPaidDelayedTotal'] = 0;
                 $user['lastInvoice']               = [];
-                $user['url_list_user']             = Pi::url($this->url('admin', [
-                    'module'     => 'order',
-                    'controller' => 'order',
-                    'action'     => 'listUser',
-                    'uid'        => $user['id'],
-                ]));
+                $user['url_list_user']             = Pi::url(
+                    $this->url(
+                        'admin', [
+                            'module'     => 'order',
+                            'controller' => 'order',
+                            'action'     => 'listUser',
+                            'uid'        => $user['id'],
+                        ]
+                    )
+                );
 
                 foreach ($invoices as $invoice) {
                     if ($invoice['uid'] == $user['id']) {
@@ -524,6 +536,34 @@ class IndexController extends ActionController
         // Check is user
         if ($uid > 0) {
 
+            // Set option
+            $option = [];
+
+            // Set form
+            $form = new CommentForm('comment', $option);
+            if ($this->request->isPost()) {
+                $data = $this->request->getPost();
+                $form->setInputFilter(new CommentFilter($option));
+                $form->setData($data);
+                if ($form->isValid()) {
+                    $values = $form->getData();
+
+                    // Set values
+                    $values['uid']         = $uid;
+                    $values['by']          = Pi::user()->getId();
+                    $values['time_create'] = time();
+
+                    // Save values
+                    $row = $this->getModel('comment')->createRow();
+                    $row->assign($values);
+                    $row->save();
+
+                    // Jump
+                    $message = __('Your comment saved successfully.');
+                    $this->jump(['action' => 'user', 'uid' => $uid], $message);
+                }
+            }
+
             // Set list
             $list = [];
 
@@ -593,10 +633,12 @@ class IndexController extends ActionController
             }
 
             // Get user
-            $user = Pi::service('user')->get($uid, [
-                'uid', 'name', 'active', 'first_name', 'last_name', 'email',
-                'mobile', 'phone', 'address1', 'company', 'company_description',
-            ]);
+            $user = Pi::service('user')->get(
+                $uid, [
+                    'uid', 'name', 'active', 'first_name', 'last_name', 'email',
+                    'mobile', 'phone', 'address1', 'company', 'company_description',
+                ]
+            );
 
             // Get user role
             $user['roleSystem'] = Pi::registry('role')->read('front');
@@ -633,19 +675,49 @@ class IndexController extends ActionController
 
             // Set user
             $user['url']                       = Pi::url(Pi::service('user')->getUrl('profile', $user['id']));
-            $user['edit']                      = Pi::url($this->url('', [
-                'module'     => 'user',
-                'controller' => 'edit',
-                'uid'        => $user['id'],
-            ]));
-            $user['attach']                    = Pi::url($this->url('', [
-                'action' => 'userUpdate',
-                'uid'    => $user['id'],
-            ]));
-            $user['avatar']                    = Pi::user()->avatar($user['id'], 'medium', [
-                'alt'   => '',
-                'class' => 'rounded-circle',
-            ]);
+            $user['edit']                      = Pi::url(
+                $this->url(
+                    '', [
+                        'module'     => 'user',
+                        'controller' => 'edit',
+                        'uid'        => $user['id'],
+                    ]
+                )
+            );
+            $user['attach']                    = Pi::url(
+                $this->url(
+                    '', [
+                        'action' => 'userUpdate',
+                        'uid'    => $user['id'],
+                    ]
+                )
+            );
+            $user['creditUrl']                 = Pi::url(
+                $this->url(
+                    '', [
+                        'module'     => 'order',
+                        'controller' => 'credit',
+                        'action'     => 'history',
+                        'uid'        => $user['id'],
+                    ]
+                )
+            );
+            $user['creditUpdateUrl']           = Pi::url(
+                $this->url(
+                    '', [
+                        'module'     => 'order',
+                        'controller' => 'credit',
+                        'action'     => 'update',
+                        'uid'        => $user['id'],
+                    ]
+                )
+            );
+            $user['avatar']                    = Pi::user()->avatar(
+                $user['id'], 'medium', [
+                    'alt'   => '',
+                    'class' => 'rounded-circle',
+                ]
+            );
             $user['credit']                    = $credit;
             $user['invoice']                   = [];
             $user['orderList']                 = [];
@@ -661,12 +733,16 @@ class IndexController extends ActionController
             $user['invoiceNextPaidTotal']      = 0;
             $user['invoiceUnPaidDelayedTotal'] = 0;
             $user['lastInvoice']               = [];
-            $user['url_list_user']             = Pi::url($this->url('admin', [
-                'module'     => 'order',
-                'controller' => 'order',
-                'action'     => 'listUser',
-                'uid'        => $user['id'],
-            ]));
+            $user['url_list_user']             = Pi::url(
+                $this->url(
+                    'admin', [
+                        'module'     => 'order',
+                        'controller' => 'order',
+                        'action'     => 'listUser',
+                        'uid'        => $user['id'],
+                    ]
+                )
+            );
 
             foreach ($invoices as $invoice) {
                 if ($invoice['uid'] == $user['id']) {
@@ -758,6 +834,19 @@ class IndexController extends ActionController
             // Get score
             $user['score'] = Pi::api('invoice', 'order')->getInvoiceScore($user['uid']);
 
+            // Get comment list
+            $comments = [];
+            $where    = ['uid' => $uid];
+            $order    = ['time_create DESC'];
+            $select   = $this->getModel('comment')->select()->where($where)->order($order);
+            $rowset   = $this->getModel('comment')->selectWith($select);
+
+            // Make list
+            foreach ($rowset as $row) {
+                $comments[$row->id]                     = $row->toArray();
+                $comments[$row->id]['time_create_view'] = _date($row->time_create);
+            }
+
             // Set view
             $this->view()->assign('list', $list);
             $this->view()->assign('user', $user);
@@ -765,6 +854,8 @@ class IndexController extends ActionController
             $this->view()->assign('orderList', $orderList);
             $this->view()->assign('installment', $installment);
             $this->view()->assign('analyticUser', $analyticUser);
+            $this->view()->assign('form', $form);
+            $this->view()->assign('comments', $comments);
         } else {
             $uidList = [];
             $columns = ['uid'];
@@ -782,7 +873,8 @@ class IndexController extends ActionController
 
             // Get user list
             $users    = [];
-            $userList = Pi::service('user')->mget($uidList,
+            $userList = Pi::service('user')->mget(
+                $uidList,
                 ['uid', 'name', 'active', 'first_name', 'last_name', 'email']
             );
             foreach ($userList as $userSingle) {
@@ -825,19 +917,27 @@ class IndexController extends ActionController
         $config = Pi::service('registry')->config->read($this->getModule());
 
         // Get user
-        $user           = Pi::service('user')->get($uid, [
-            'uid', 'name', 'active', 'first_name', 'last_name', 'email',
-            'mobile', 'phone', 'address1', 'company', 'company_description',
-        ]);
-        $user['edit']   = Pi::url($this->url('', [
-            'module'     => 'user',
-            'controller' => 'edit',
-            'uid'        => $user['id'],
-        ]));
-        $user['avatar'] = Pi::user()->avatar($user['id'], 'medium', [
-            'alt'   => '',
-            'class' => 'rounded-circle',
-        ]);
+        $user           = Pi::service('user')->get(
+            $uid, [
+                'uid', 'name', 'active', 'first_name', 'last_name', 'email',
+                'mobile', 'phone', 'address1', 'company', 'company_description',
+            ]
+        );
+        $user['edit']   = Pi::url(
+            $this->url(
+                '', [
+                    'module'     => 'user',
+                    'controller' => 'edit',
+                    'uid'        => $user['id'],
+                ]
+            )
+        );
+        $user['avatar'] = Pi::user()->avatar(
+            $user['id'], 'medium', [
+                'alt'   => '',
+                'class' => 'rounded-circle',
+            ]
+        );
 
         // Get user role
         $user['roleSystem'] = Pi::registry('role')->read('front');

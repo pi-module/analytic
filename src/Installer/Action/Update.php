@@ -10,6 +10,7 @@
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
+
 namespace Module\Analytic\Installer\Action;
 
 use Pi;
@@ -25,7 +26,7 @@ class Update extends BasicUpdate
     protected function attachDefaultListeners()
     {
         $events = $this->events;
-        $events->attach('update.pre', array($this, 'updateSchema'));
+        $events->attach('update.pre', [$this, 'updateSchema']);
         parent::attachDefaultListeners();
 
         return $this;
@@ -41,7 +42,8 @@ class Update extends BasicUpdate
         // Update to version 0.0.5
         if (version_compare($moduleVersion, '0.0.5', '<')) {
             // Add table of author
-            $sql = <<<'EOD'
+            $sql
+                = <<<'EOD'
 CREATE TABLE `{user}` (
   `id`              INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `document_images` TEXT,
@@ -54,11 +56,44 @@ EOD;
             try {
                 $sqlHandler->queryContent($sql);
             } catch (\Exception $exception) {
-                $this->setResult('db', array(
-                    'status' => false,
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
                     'message' => 'SQL schema query for author table failed: '
                         . $exception->getMessage(),
-                ));
+                ]
+                );
+
+                return false;
+            }
+        }
+
+        // Update to version 0.0.6
+        if (version_compare($moduleVersion, '0.0.6', '<')) {
+            // Add table of author
+            $sql
+                = <<<'EOD'
+CREATE TABLE `{comment}` (
+  `id`          INT(10) UNSIGNED NOT NULL  AUTO_INCREMENT,
+  `uid`         INT(10) UNSIGNED NOT NULL  DEFAULT '0',
+  `by`          INT(10) UNSIGNED NOT NULL  DEFAULT '0',
+  `time_create` INT(10) UNSIGNED NOT NULL  DEFAULT '0',
+  `note`        TEXT,
+  PRIMARY KEY (`id`)
+);
+EOD;
+            SqlSchema::setType($this->module);
+            $sqlHandler = new SqlSchema;
+            try {
+                $sqlHandler->queryContent($sql);
+            } catch (\Exception $exception) {
+                $this->setResult(
+                    'db', [
+                    'status'  => false,
+                    'message' => 'SQL schema query for author table failed: '
+                        . $exception->getMessage(),
+                ]
+                );
 
                 return false;
             }

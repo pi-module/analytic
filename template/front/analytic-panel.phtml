@@ -64,7 +64,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
             </div>
         <?php } ?>
     </div>
-    <br /><br />
+    <br/><br/>
     <div class="clearfix row">
         <div class="col-md-5">
             <h3><?php _e('Payment chart'); ?></h3>
@@ -108,7 +108,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
             </div>
         </div>
     </div>
-    <br /><br />
+    <br/><br/>
     <div class="page-header">
         <h2><?php _e('User report'); ?></h2>
     </div>
@@ -146,25 +146,29 @@ $this->js($this->assetModule('js/Chart.min.js'));
                 <td class="text-center">
                     <?php if (count($user['orderList']) > 0) { ?>
                         <?php echo $this->escape(_number(count($user['orderList']))); ?>
-                        (<small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['orderTotal'])); ?></small>)
+                        (
+                        <small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['orderTotal'])); ?></small>)
                     <?php } ?>
                 </td>
                 <td class="text-center">
                     <?php if (count($user['invoicePaidList']) > 0) { ?>
                         <?php echo $this->escape(_number(count($user['invoicePaidList']))); ?>
-                        (<small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoicePaidTotal'])); ?></small>)
+                        (
+                        <small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoicePaidTotal'])); ?></small>)
                     <?php } ?>
                 </td>
                 <td class="text-center">
                     <?php if (count($user['invoiceUnPaidList']) > 0) { ?>
                         <?php echo $this->escape(_number(count($user['invoiceUnPaidList']))); ?>
-                        (<small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoiceUnPaidTotal'])); ?></small>)
+                        (
+                        <small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoiceUnPaidTotal'])); ?></small>)
                     <?php } ?>
                 </td>
                 <td class="text-center">
                     <?php if (count($user['invoiceDelayedList']) > 0) { ?>
                         <?php echo $this->escape(_number(count($user['invoiceDelayedList']))); ?>
-                        (<small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoiceDelayedTotal'])); ?></small>)
+                        (
+                        <small><?php echo $this->escape(Pi::api('api', 'order')->viewPrice($user['invoiceDelayedTotal'])); ?></small>)
                     <?php } ?>
                 </td>
                 <td class="text-center"><?php echo $this->escape($user['credit']['amount_view']); ?></td>
@@ -180,19 +184,27 @@ $this->js($this->assetModule('js/Chart.min.js'));
             <th><?php _e('Total table'); ?></th>
             <th class="text-center">
                 <?php echo $this->escape(_number(count($orderList))); ?>
-                (<small><?php echo Pi::api('api', 'order')->viewPrice($orderTotal); ?></small>)
+                (
+                <small><?php echo Pi::api('api', 'order')->viewPrice($orderTotal); ?></small>
+                )
             </th>
             <th class="text-center">
                 <?php echo $this->escape(_number(count($invoicePaidList))); ?>
-                (<small><?php echo Pi::api('api', 'order')->viewPrice($invoicePaidTotal); ?></small>)
+                (
+                <small><?php echo Pi::api('api', 'order')->viewPrice($invoicePaidTotal); ?></small>
+                )
             </th>
             <th class="text-center">
                 <?php echo $this->escape(_number(count($invoiceUnPaidList))); ?>
-                (<small><?php echo Pi::api('api', 'order')->viewPrice($invoiceUnPaidTotal); ?></small>)
+                (
+                <small><?php echo Pi::api('api', 'order')->viewPrice($invoiceUnPaidTotal); ?></small>
+                )
             </th>
             <th class="text-center">
                 <?php echo $this->escape(_number(count($invoiceDelayedList))); ?>
-                (<small><?php echo Pi::api('api', 'order')->viewPrice($invoiceDelayedTotal); ?></small>)
+                (
+                <small><?php echo Pi::api('api', 'order')->viewPrice($invoiceDelayedTotal); ?></small>
+                )
             </th>
             <th class="text-center"></th>
             <th class="text-center"><?php echo $this->escape($lastInvoice); ?></th>
@@ -252,7 +264,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
                         //showLine: false,
                         pointRadius: 5,
                         pointHoverRadius: 10,
-                    },{
+                    }, {
                         label: "<?php _e('DuDate invoice'); ?>",
                         fill: false,
                         backgroundColor: 'rgb(255, 99, 132)', // red
@@ -261,7 +273,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
                         //showLine: false,
                         pointRadius: 5,
                         pointHoverRadius: 10,
-                    },{
+                    }, {
                         label: "<?php _e('Create invoice'); ?>",
                         fill: false,
                         backgroundColor: 'rgb(54, 162, 235)', // blue

@@ -181,11 +181,15 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     <?php if ($viewer == 'user') { ?>
                         <td class="text-center">
                             <a class="btn btn-primary btn-sm" title="<?php _e('View'); ?>" target="_blank"
-                               href="<?php echo Pi::url($this->url('', [
-                                   'module'     => 'order',
-                                   'controller' => 'order',
-                                   'action'     => 'view',
-                                   'id'         => $order['id']])); ?>"><i
+                               href="<?php echo Pi::url(
+                                   $this->url(
+                                       '', [
+                                       'module'     => 'order',
+                                       'controller' => 'order',
+                                       'action'     => 'view',
+                                       'id'         => $order['id']]
+                                   )
+                               ); ?>"><i
                                         class="fa fa-eye"></i> <?php _e('View'); ?></a>
                         </td>
                     <?php } ?>
@@ -223,12 +227,14 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     <?php if ($viewer == 'user') { ?>
                         <td class="text-center">
                             <a class="btn btn-primary btn-sm" title="<?php _e('View'); ?>"
-                               href="<?php echo $this->url('order', [
+                               href="<?php echo $this->url(
+                                   'order', [
                                    'module'     => 'order',
                                    'controller' => 'detail',
                                    'action'     => 'index',
                                    'id'         => $invoice['order'],
-                               ]); ?>"><i
+                               ]
+                               ); ?>"><i
                                         class="fa fa-eye"></i> <?php _e('View'); ?></a>
                         </td>
                     <?php } ?>
@@ -262,12 +268,14 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     <td class="text-center"><?php echo $this->escape($invoice['time_duedate_view']); ?></td>
                     <td class="text-center">
                         <a class="btn btn-primary btn-sm" title="<?php _e('View'); ?>"
-                           href="<?php echo $this->url('order', [
+                           href="<?php echo $this->url(
+                               'order', [
                                'module'     => 'order',
                                'controller' => 'detail',
                                'action'     => 'index',
                                'id'         => $invoice['order'],
-                           ]); ?>"><i
+                           ]
+                           ); ?>"><i
                                     class="fa fa-eye"></i> <?php _e('View'); ?></a>
                     </td>
                 </tr>
@@ -300,7 +308,9 @@ $this->js($this->assetModule('js/Chart.min.js'));
         <?php foreach ($installment['all']['10-order'] as $orderItem) { ?>
             <tr class="text-muted">
                 <td class="text-center"><a title="<?php echo $block['resources']['orders'][$orderItem]['code']; ?>"
-                                           href="<?php echo $this->url('order', ['module' => 'order', 'controller' => 'detail', 'id' => $block['resources']['orders'][$orderItem]['id']]); ?>"><?php echo $block['resources']['orders'][$orderItem]['code']; ?></a>
+                                           href="<?php echo $this->url(
+                                               'order', ['module' => 'order', 'controller' => 'detail', 'id' => $block['resources']['orders'][$orderItem]['id']]
+                                           ); ?>"><?php echo $block['resources']['orders'][$orderItem]['code']; ?></a>
                 </td>
                 <td class="text-center"><?php if ($installment[0]['10-invoice'][$orderItem]['total_price_view']) {
                         echo $installment[0]['10-invoice'][$orderItem]['total_price_view'];
@@ -384,7 +394,9 @@ $this->js($this->assetModule('js/Chart.min.js'));
         <?php foreach ($installment['all']['20-order'] as $orderItem) { ?>
             <tr class="text-muted">
                 <td class="text-center"><a title="<?php echo $block['resources']['orders'][$orderItem]['code']; ?>"
-                                           href="<?php echo $this->url('order', ['module' => 'order', 'controller' => 'detail', 'id' => $block['resources']['orders'][$orderItem]['id']]); ?>"><?php echo $block['resources']['orders'][$orderItem]['code']; ?></a>
+                                           href="<?php echo $this->url(
+                                               'order', ['module' => 'order', 'controller' => 'detail', 'id' => $block['resources']['orders'][$orderItem]['id']]
+                                           ); ?>"><?php echo $block['resources']['orders'][$orderItem]['code']; ?></a>
                 </td>
                 <td class="text-center"><?php if (isset($installment[0]['20-invoice'][$orderItem]['total_price_view'])) {
                         echo $installment[0]['20-invoice'][$orderItem]['total_price_view'];
@@ -468,7 +480,9 @@ $this->js($this->assetModule('js/Chart.min.js'));
         <?php foreach ($installment['all']['30-order'] as $orderItem) { ?>
             <tr class="text-muted">
                 <td class="text-center"><a title="<?php echo $block['resources']['orders'][$orderItem]['code']; ?>"
-                                           href="<?php echo $this->url('order', ['module' => 'order', 'controller' => 'detail', 'id' => $block['resources']['orders'][$orderItem]['id']]); ?>"><?php echo $block['resources']['orders'][$orderItem]['code']; ?></a>
+                                           href="<?php echo $this->url(
+                                               'order', ['module' => 'order', 'controller' => 'detail', 'id' => $block['resources']['orders'][$orderItem]['id']]
+                                           ); ?>"><?php echo $block['resources']['orders'][$orderItem]['code']; ?></a>
                 </td>
                 <td class="text-center"><?php if (isset($installment[0]['30-invoice'][$orderItem]['total_price_view'])) {
                         echo $installment[0]['30-invoice'][$orderItem]['total_price_view'];

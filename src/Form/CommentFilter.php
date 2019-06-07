@@ -16,15 +16,20 @@ namespace Module\Analytic\Form;
 use Pi;
 use Zend\InputFilter\InputFilter;
 
-class UserFilter extends InputFilter
+class CommentFilter extends InputFilter
 {
     public function __construct($option = [])
     {
-        // Main image
+        // note
         $this->add(
             [
-                'name'     => 'document_images',
+                'name'     => 'note',
                 'required' => true,
+                'filters'  => [
+                    [
+                        'name' => 'StringTrim',
+                    ],
+                ],
             ]
         );
     }

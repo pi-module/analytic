@@ -177,10 +177,14 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     <td class="text-center"><?php echo $this->escape($user['credit']['amount_view']); ?></td>
                     <td class="text-center"><?php echo $this->escape($user['lastInvoice']); ?></td>
                     <td>
-                        <a class="btn btn-link btn-sm" target="_blank" href="<?php echo Pi::url($this->url('', [
-                            'action' => 'user',
-                            'uid'    => $user['id'],
-                        ])); ?>" title="<?php _e('View analytic'); ?>">
+                        <a class="btn btn-link btn-sm" target="_blank" href="<?php echo Pi::url(
+                            $this->url(
+                                '', [
+                                'action' => 'user',
+                                'uid'    => $user['id'],
+                            ]
+                            )
+                        ); ?>" title="<?php _e('View analytic'); ?>">
                             <i class="fa fa-external-link" aria-hidden="true"></i>
                         </a>
                         <button type="button" class="btn btn-link btn-sm show-list-user" title="<?php _e('Fast view'); ?>">
