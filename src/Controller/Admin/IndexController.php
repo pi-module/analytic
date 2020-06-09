@@ -19,7 +19,7 @@ use Module\Analytic\Form\UserFilter;
 use Module\Analytic\Form\UserForm;
 use Pi;
 use Pi\Mvc\Controller\ActionController;
-use Zend\Db\Sql\Predicate\Expression;
+use Laminas\Db\Sql\Predicate\Expression;
 
 class IndexController extends ActionController
 {

@@ -15,7 +15,7 @@ namespace Module\Analytic\Controller\Front;
 
 use Pi;
 use Pi\Mvc\Controller\ActionController;
-use Zend\Db\Sql\Predicate\Expression;
+use Laminas\Db\Sql\Predicate\Expression;
 
 class IndexController extends ActionController
 {
