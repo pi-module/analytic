@@ -333,8 +333,8 @@ EOT;
                         </td>
                         <td class="text-center"><?php echo $this->escape($invoice['time_duedate_view']); ?></td>
                         <td class="text-center">
-                            <a class="btn btn-primary btn-sm" title="<?php _e('View'); ?>"
-                               href="<?php echo $this->url('order', ['module' => 'order', 'controller' => 'detail', 'id' => $invoice['order']]); ?>"><i
+                            <a class="btn btn-primary btn-sm" title="<?php _e('View'); ?>" target="_blank"
+                               href="<?php echo $this->url('admin', ['module' => 'order', 'controller' => 'order', 'action' => 'view', 'id' => $invoice['order']]); ?>"><i
                                         class="fa fa-eye"></i> <?php _e('View'); ?></a>
                         </td>
                     </tr>
@@ -825,7 +825,7 @@ EOT;
                    placeholder="<?php _e('Search for users ...'); ?>">
         </div>
         <br/>
-        <ul id="userList" class="list-group">
+        <ul id="userList" class="list-group row">
             <?php foreach ($users as $user) { ?>
                 <li class="list-group-item col-md-3">
                     <a href="<?php echo $this->escape($user['view_url']); ?>">

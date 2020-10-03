@@ -4,7 +4,7 @@ $this->backbone();
 $this->css($this->assetModule('css/admin.css'));
 $this->js($this->assetModule('js/Chart.min.js'));
 ?>
-<?php if ($role) { ?>
+<?php if (isset($role) && $role) { ?>
     <div id="js-order" class="clearfix">
         <div class="page-header">
             <h1><?php echo sprintf(__('%s company dashboard'), $company['title']); ?></h1>
@@ -32,7 +32,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     </div>
                 </div>
             <?php } ?>
-            <?php if (count($invoiceUnPaidList) > 0) { ?>
+            <?php if (isset($invoiceUnPaidList) && count($invoiceUnPaidList) > 0) { ?>
                 <div class="col-md-6">
                     <div class="alert alert-warning" role="alert">
                         <?php echo sprintf(
@@ -43,7 +43,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     </div>
                 </div>
             <?php } ?>
-            <?php if (count($invoiceNextList) > 0) { ?>
+            <?php if (isset($invoiceNextList) && count($invoiceNextList) > 0) { ?>
                 <div class="col-md-6">
                     <div class="alert alert-warning" role="alert">
                         <?php echo sprintf(
@@ -54,7 +54,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     </div>
                 </div>
             <?php } ?>
-            <?php if (count($invoiceDelayedList) > 0) { ?>
+            <?php if (isset($invoiceDelayedList) && count($invoiceDelayedList) > 0) { ?>
                 <div class="col-md-6">
                     <div class="alert alert-danger" role="alert">
                         <?php echo sprintf(
@@ -127,13 +127,13 @@ $this->js($this->assetModule('js/Chart.min.js'));
             </tr>
             <?php foreach ($userInformation as $user) { ?>
                 <?php $bgClass = '';
-                if (count($user['invoiceDelayedList']) > 0) {
+                if (isset($user['invoiceDelayedList']) && count($user['invoiceDelayedList']) > 0) {
                     $bgClass = 'danger';
-                } elseif (count($user['invoiceNextList']) > 0) {
+                } elseif (isset($user['invoiceNextList']) && count($user['invoiceNextList']) > 0) {
                     $bgClass = 'warning';
-                } elseif (count($user['invoiceUnPaidList']) > 0) {
+                } elseif (isset($user['invoiceUnPaidList']) && count($user['invoiceUnPaidList']) > 0) {
                     //$bgClass = 'info';
-                } elseif (count($user['invoiceUnPaidList']) == 0) {
+                } elseif (isset($user['invoiceUnPaidList']) && count($user['invoiceUnPaidList']) == 0) {
                     $bgClass = 'success';
                 } ?>
                 <tr class="<?php echo $bgClass; ?>"
@@ -142,8 +142,7 @@ $this->js($this->assetModule('js/Chart.min.js'));
                     <td>
                         <ul class="list-inline">
                             <li class="list-inline-item"><?php echo $user['avatar']; ?></li>
-                            <li class="list-inline-item"><?php echo $this->escape($user['first_name']); ?></li>
-                            <li class="list-inline-item"><?php echo $this->escape($user['last_name']); ?></li>
+                            <li class="list-inline-item"><?php echo $this->escape($user['name']); ?></li>
                         </ul>
                     </td>
                     <td class="text-center">

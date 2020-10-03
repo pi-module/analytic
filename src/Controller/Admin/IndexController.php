@@ -256,11 +256,11 @@ class IndexController extends ActionController
             $userInformation = [];
             $userList        = Pi::service('user')->mget(
                 $uidList,
-                ['uid', 'name', 'active', 'first_name', 'last_name', 'email']
+                ['id','uid', 'name', 'active', 'first_name', 'last_name', 'email']
             );
             foreach ($userList as $userSingle) {
-                $userSingle['id']          = $userSingle['uid'];
-                $users[$userSingle['uid']] = $userSingle;
+                $userSingle['id']          = $userSingle['id'];
+                $users[$userSingle['id']] = $userSingle;
             }
 
             // Get avatar list
@@ -341,7 +341,9 @@ class IndexController extends ActionController
 
                         if ($invoice['time_duedate'] < (time() + $nextPaid) && $invoice['time_payment'] == 0) {
                             $user['invoiceNextList'][$invoice['id']] = $invoice['id'];
-                            $user['invoiceNextTotal']                = $user['invoiceNextTotal'] + $invoice['total_price'];
+                            if (isset($user['invoiceNextTotal'])) {
+                                $user['invoiceNextTotal']                = $user['invoiceNextTotal'] + $invoice['total_price'];
+                            }
                         }
 
                         $user['orderTotal']                   = $user['orderTotal'] + $invoice['total_price'];
@@ -351,11 +353,25 @@ class IndexController extends ActionController
                         $lastInvoice[$invoice['time_duedate']]         = $invoice['time_duedate'];
 
                         // Set chart
-                        $chartCreate[date('Y/m', $invoice['time_create'])]++;
-                        $chartTime[date('Y/m', $invoice['time_duedate'])]++;
+                        if (isset($chartCreate[date('Y/m', $invoice['time_create'])])) {
+                            $chartCreate[date('Y/m', $invoice['time_create'])]++;
+                        } else {
+                            $chartCreate[date('Y/m', $invoice['time_create'])] = 1;
+                        }
+
+                        if (isset($chartTime[date('Y/m', $invoice['time_duedate'])])) {
+                            $chartTime[date('Y/m', $invoice['time_duedate'])]++;
+                        } else {
+                            $chartTime[date('Y/m', $invoice['time_duedate'])] = 1;
+                        }
+
                         $chartLabel[date('Y/m', $invoice['time_create'])] = date('Y/m', $invoice['time_create']);
                         if ($invoice['time_payment'] > 0) {
-                            $chartPaid[date('Y/m', $invoice['time_payment'])]++;
+                            if (isset($chartPaid[date('Y/m', $invoice['time_payment'])])) {
+                                $chartPaid[date('Y/m', $invoice['time_payment'])]++;
+                            } else {
+                                $chartPaid[date('Y/m', $invoice['time_payment'])] = 1;
+                            }
                             $chartLabel[date('Y/m', $invoice['time_payment'])] = date('Y/m', $invoice['time_payment']);
                         }
 
@@ -378,10 +394,19 @@ class IndexController extends ActionController
                 $invoiceUnPaidList            = array_unique(array_merge($invoiceUnPaidList, $user['invoiceUnPaidList']));
                 $invoiceUnPaidTotal           = $invoiceUnPaidTotal + $user['invoiceUnPaidTotal'];
                 $invoiceDelayedList           = array_unique(array_merge($invoiceDelayedList, $user['invoiceDelayedList']));
-                $invoiceDelayedTotal          = $invoiceDelayedTotal + $user['invoiceDelayedTotal'];
-                $invoiceNextList              = array_unique(array_merge($invoiceNextList, $user['invoiceNextList']));
-                $invoiceNextTotal             = $invoiceNextTotal + $user['invoiceNextTotal'];
-                $invoiceUnPaidDelayedTotal    = $invoiceUnPaidDelayedTotal + $user['invoiceUnPaidDelayedTotal'];
+                if (isset($user['invoiceDelayedTotal'])) {
+                    $invoiceDelayedTotal          = $invoiceDelayedTotal + $user['invoiceDelayedTotal'];
+                }
+                if (isset($user['invoiceNextList'])) {
+                    $invoiceNextList              = array_unique(array_merge($invoiceNextList, $user['invoiceNextList']));
+                }
+                if (isset($user['invoiceNextTotal'])) {
+                    $invoiceNextTotal             = $invoiceNextTotal + $user['invoiceNextTotal'];
+                }
+                if (isset($user['invoiceUnPaidDelayedTotal'])) {
+                    $invoiceUnPaidDelayedTotal    = $invoiceUnPaidDelayedTotal + $user['invoiceUnPaidDelayedTotal'];
+                }
+
                 $userInformation[$user['id']] = $user;
             }
 
@@ -528,7 +553,7 @@ class IndexController extends ActionController
     public function userAction()
     {
         // Get read
-        $uid = $this->params('uid', 0);
+        $uid = $this->params('id', 0);
 
         // Get config
         $config = Pi::service('registry')->config->read($this->getModule());
@@ -875,13 +900,13 @@ class IndexController extends ActionController
             $users    = [];
             $userList = Pi::service('user')->mget(
                 $uidList,
-                ['uid', 'name', 'active', 'first_name', 'last_name', 'email']
+                ['id', 'uid', 'name', 'active', 'first_name', 'last_name', 'email']
             );
             foreach ($userList as $userSingle) {
-                $userSingle['id']          = $userSingle['uid'];
-                $userSingle['avatar']      = $avatars[$userSingle['uid']];
-                $userSingle['view_url']    = $this->url('', ['action' => 'user', 'uid' => $userSingle['uid']]);
-                $users[$userSingle['uid']] = $userSingle;
+                $userSingle['id']          = $userSingle['id'];
+                $userSingle['avatar']      = $avatars[$userSingle['id']];
+                $userSingle['view_url']    = $this->url('', ['action' => 'user', 'id' => $userSingle['id']]);
+                $users[$userSingle['id']] = $userSingle;
             }
 
             // Set view

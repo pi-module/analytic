@@ -15,12 +15,12 @@ return [
     'meta'     => [
         'title'       => _a('Analytic'),
         'description' => _a('Analytic for order module'),
-        'version'     => '0.0.6',
+        'version'     => '0.0.7',
         'license'     => 'New BSD',
         'logo'        => 'image/logo.png',
         'readme'      => 'docs/readme.txt',
-        'demo'        => 'http://pialog',
-        'icon'        => 'fa-line-chart',
+        'demo'        => 'http://piengine.org',
+        'icon'        => 'fas fa-chart-pie',
     ],
     // Author information
     'author'   => [
